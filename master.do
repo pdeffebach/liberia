@@ -29,7 +29,7 @@ qui adopath ++ ./ado
 		* 	security 
 		* 	use and improvement of land
 		* 	ownership of land
-	do do/import_clean_construct
+	qui do do/import_clean_construct
 
 
 ********************************************************************************
@@ -41,7 +41,7 @@ qui adopath ++ ./ado
 			original analysis file
 	* 	Labels all the new variables from the reshape
 */
-	do do/reshaping
+	qui do do/reshaping
 
 
 ********************************************************************************
