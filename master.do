@@ -5,7 +5,6 @@ clear matrix
 clear mata
 set more off
 cap log close
-log using logs/analysis_log, replace
 
 ********************************************************************************
 * Set the directory for the frmttable ado file *********************************
