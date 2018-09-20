@@ -65,7 +65,7 @@ label var lmg_conf_viol_c_ec2 "\quad Violence \phantom{}"
 label var lmg_conf_damage_c_ec2 "\quad Property damage \phantom{}"
 label var lmg_conf_witch_c_ec2 "\quad Witchcraft \phantom{}"
 
-/*
+
 // Fallow land
 label var fallowland_farm 		"Index of Fallow Land for farm"
 label var landrestpast  		"\quad Has ever let land rest"
