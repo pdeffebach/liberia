@@ -3,7 +3,7 @@
 cap program drop ate_maker
 program define ate_maker
 clear mata 
-syntax varlist, TREAT(varlist) COVARIATES(varlist) SUBSET(varlist) FILENAME(name) 
+syntax varlist, TREAT(varlist) COVARIATES(varlist) SUBSET(varlist) FILENAME(name) [omitpct]
 qui do do/tables_do/adjust_p_values
 local dep_vars `varlist' // creating a local for dep. variables
 local number_dep_vars = `:word count `dep_vars''
@@ -75,10 +75,10 @@ foreach y in `dep_vars'{
 	loc ++y_counter
 }
 
-	if "`omitpct'" == "" {
-	********************************************************************************
-	* Merge matrices to form our larger, final matrix. *****************************
-	********************************************************************************
+if "`omitpct'" == "" {
+********************************************************************************
+* Merge matrices to form our larger, final matrix. *****************************
+********************************************************************************
 	qui frmttable, statmat(reg_count) sdec(0) varlabels 
 	qui frmttable, statmat(control_mean) sdec(3) varlabels merge
 	qui frmttable, statmat(reg_main) sdec(3) annotate(stars) asymbol(*,**,***) varlabels merge substat(1) squarebrack 
@@ -95,26 +95,23 @@ foreach y in `dep_vars'{
 	varlabels ///
 	nocenter ///
 	replace
-	}
-	else {
-		qui frmttable, statmat(reg_count) sdec(0) varlabels 
-		qui frmttable, statmat(control_mean) sdec(3) varlabels merge
-		qui frmttable, statmat(reg_main) sdec(3) annotate(stars) asymbol(*,**,***) varlabels merge substat(1) squarebrack 
-		frmttable using out/tables/`filename', ///
-		ctitle( ///
-		"", "", "", "" \ ///
-		"", "", "Control", "" \ ///
-		"Dependent Variable", "N", "mean", "ITT" \ ///
-		"", "(1)", "(2)", "(3)") ///
-		tex ///
-		fragment ///
-		varlabels ///
-		nocenter ///
-		replace
-	}
 }
-
-
+else {
+	qui frmttable, statmat(reg_count) sdec(0) varlabels 
+	qui frmttable, statmat(control_mean) sdec(3) varlabels merge
+	qui frmttable, statmat(reg_main) sdec(3) annotate(stars) asymbol(*,**,***) varlabels merge substat(1) squarebrack 
+	frmttable using out/tables/`filename', ///
+	ctitle( ///
+	"", "", "", "" \ ///
+	"", "", "Control", "" \ ///
+	"Dependent Variable", "N", "mean", "ITT" \ ///
+	"", "(1)", "(2)", "(3)") ///
+	tex ///
+	fragment ///
+	varlabels ///
+	nocenter ///
+	replace
+}
 
 end 
 

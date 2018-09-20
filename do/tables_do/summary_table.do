@@ -41,11 +41,4 @@ fragment ///
 replace ///
 nocenter
 
-
-frmttable using out/rtf_tables/`filename', ///
-ctitles("Variable", "Mean", "Std. dev", "Min", "25", "Median", "75", "Max", "Count" \ ///
-"", "(1)", "(2)", "(3)", "(4)", "(5)", "(6)", "(7)", "(8)") ///
-varlabels ///
-replace
-
 end

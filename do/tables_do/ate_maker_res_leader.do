@@ -325,15 +325,6 @@ program define ate_maker_res_leader
 	varlabels ///
 	nocenter ///
 	replace
-
-
-	frmttable using out/rtf_tables/`filename', ///
-	ctitle("", "\uline{\hfill Residents \hfill}", "", "", "", "\uline{\hfill Leaders \hfill}", "", "", "", \ ///
-	"Dependent Variable", "N", "Control Mean", "ITT", " Adj. P-value", "N", "Control Mean", "ITT", "Adj. P-value" \ ///
-	"", "(1)", "(2)", "(3)", "(4)", "(5)", "(6)", "(7)") ///
-	varlabels ///
-	replace
-
 */
 
 */

@@ -125,17 +125,6 @@ program define ate_maker_inter_demo
 	nocenter ///
 	replace 
 
-
-
-	//local title_row2  "Treatment", "Interaction", "Sum",
-	frmttable using out/rtf_tables/`filename', ///
-	ctitle("", "\uline{\hfill `inter1' \hfill}", "","", "\uline{\hfill `inter2' \hfill}", "","", "\uline{\hfill `inter3' \hfill}","","", "\uline{\hfill `inter4' \hfill}","","", "\uline{\hfill `inter5' \hfill}","","", "\uline{\hfill `inter6' \hfill}","","", "\uline{\hfill `inter7' \hfill}","",""  \ ///
-	"Dependent variable", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum","Treatment", "Interaction", "Sum","Treatment", "Interaction", "Sum") ///
-	multicol(1,2,3; 1,5,3; 1,8,3; 1,11,3; 1,14,3; 1,17,3; 1,20,3) ///
-	varlabels ///
-	replace 
-
-
 end 
 
 ///

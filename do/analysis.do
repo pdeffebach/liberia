@@ -32,80 +32,73 @@ qui do do/tables_do/summary_table
 ********************************************************************************
 qui summary_table $C_ec2, filename(covariates_resident) subset($L1)
 
-
+/*
 ********************************************************************************
 * Comparison between ATEs in Endline 1 and Endline 2 ***************************
 ********************************************************************************
-ate_maker_year  $land_conflict_paper, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(land_conflict_paper) ///
-    adjustvarsg1(   ///
-        anylndconf_u_ec2   ///  
-        unrslv_lnd_conf_u_ec2 ///
-        conf_any_u_ec2) ///
-    adjustvarsg2(   ///
-        anylndconf_u_ec2   ///  
-        unrslv_lnd_conf_u_ec2 ///
-        conf_any_u_ec2) ///
-    extraadjustvarsg1(   ///
-        forum_lastsuc_c_ec2   ///  
-        conf_any_c_ec2) ///
-    extraadjustvarsg2(   ///
-        conf_length_max_c_ec2 ///
-        forum_lastsuc_c_ec2   ///  
-        conf_any_c_ec2) ///
-    nsims(1000)
-asdf
-//ate_maker_year $land_conflict, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(land_conflict)
+ ate_maker_year  $land_conflict_paper, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(land_conflict_paper) ///
+     adjustvarsg1(   ///
+         anylndconf_u_ec2   ///  
+         unrslv_lnd_conf_u_ec2 ///
+         conf_any_u_ec2) ///
+     adjustvarsg2(   ///
+         anylndconf_u_ec2   ///  
+         unrslv_lnd_conf_u_ec2 ///
+         conf_any_u_ec2) ///
+     extraadjustvarsg1(   ///
+         forum_lastsuc_c_ec2   ///  
+         conf_any_c_ec2) ///
+     extraadjustvarsg2(   ///
+         conf_length_max_c_ec2 ///
+         forum_lastsuc_c_ec2   ///  
+         conf_any_c_ec2) ///
+     nsims(10)
 
-ate_maker_year $all_conflict_paper, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(all_conflict_paper) ///
-    adjustvarsg1( ///
-        lmg_conf_u_ec2 ///
-        lmg_unrslv_conf_u_ec2) ///
-    adjustvarsg2( ///
+ate_maker_year $land_conflict, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(land_conflict)
+
+ ate_maker_year $all_conflict_paper, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(all_conflict_paper) ///
+     adjustvarsg1( ///
+         lmg_conf_u_ec2 ///
+         lmg_unrslv_conf_u_ec2) ///
+     adjustvarsg2( ///
+         lmg_conf_u_ec2 ///
+         lmg_unrslv_conf_u_ec2 ///
+         lmg_conf_any_u_ec2) ///
+     extraadjustvarsg1( ///
+         lmg_forum_lastsuc_c_ec2 ///
+         lmg_forum_inf_suc_c_ec2) ///
+     extraadjustvarsg2( ///
+         lmg_forum_lastsuc_c_ec2 ///
+         lmg_forum_inf_suc_c_ec2 ///
+         lmg_conf_any_c_ec2) ///
+     nsims(10)
+
+ ate_maker_year $all_conflict, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(all_conflict)
+ ate_maker_year $comm_conflict, treat(assigned_ever) group1(ENDLINE_LEADER) group2(ENDLINE2_LEADER) controls1($comm_ctrls_apsr) controls2($comm_ctrls) filename(comm_conflict)
+
+ ate_maker_year $conflict_adj_p, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(conflict_adj_p) ///
+     adjustvarsg1( ///
+         anylndconf_u_ec2   ///  
+         unrslv_lnd_conf_u_ec2 ///
+         conf_any_u_ec2 /// 
+         forum_lastsuc_c_ec2 ///
+         conf_any_c_ec2 ) ///
+     adjustvarsg2( ///
+         anylndconf_u_ec2   ///  
+         unrslv_lnd_conf_u_ec2 ///
+         conf_any_u_ec2) ///
+    extraadjustvarsg1( ///
         lmg_conf_u_ec2 ///
         lmg_unrslv_conf_u_ec2 ///
-        lmg_conf_any_u_ec2) ///
-    extraadjustvarsg1( ///
         lmg_forum_lastsuc_c_ec2 ///
         lmg_forum_inf_suc_c_ec2) ///
     extraadjustvarsg2( ///
-        lmg_forum_lastsuc_c_ec2 ///
-        lmg_forum_inf_suc_c_ec2 ///
-        lmg_conf_any_c_ec2) ///
-    nsims(1000)
-
-ate_maker_year $all_conflict, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(all_conflict)
-ate_maker_year $comm_conflict, treat(assigned_ever) group1(ENDLINE_LEADER) group2(ENDLINE2_LEADER) controls1($comm_ctrls_apsr) controls2($comm_ctrls) filename(comm_conflict)
-
-ate_maker_year $conflict_adj_p, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(conflict_adj_p) ///
-    adjustvarsg1( ///
-        anylndconf_u_ec2   ///  
-        unrslv_lnd_conf_u_ec2 ///
-        conf_any_u_ec2 /// 
-        lmg_conf_u_ec2 ///
-        lmg_unrslv_conf_u_ec2 ///
-        forum_lastsuc_c_ec2 ///
-        conf_any_c_ec2 ///
-        lmg_forum_lastsuc_c_ec2 ///
-        lmg_forum_inf_suc_c_ec2) ///
-    adjustvarsg2( ///
-        anylndconf_u_ec2   ///  
-        unrslv_lnd_conf_u_ec2 ///
-        conf_any_u_ec2 ///
-        lmg_conf_u_ec2 ///
-        lmg_unrslv_conf_u_ec2 ///
-        lmg_conf_any_u_ec2 ///
         conf_length_max_c_ec2 ///
-        forum_lastsuc_c_ec2 ///
-        conf_any_c_ec2 ///
-        lmg_forum_lastsuc_c_ec2 ///
-        lmg_forum_inf_suc_c_ec2 ///
-        lmg_conf_any_c_ec2 ///
-            lmg_conf_threat_c_ec2 ///
-            lmg_conf_damage_c_ec2 ///
-            lmg_conf_viol_c_ec2)  ///
-    nsims(1000)
+         forum_lastsuc_c_ec2 ///
+         conf_any_c_ec2) /// 
+     nsims(10)
 
-asdf
+*/
 ********************************************************************************
 * Resident-level analysis ******************************************************
 ********************************************************************************
