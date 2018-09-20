@@ -32,7 +32,7 @@ qui do do/tables_do/summary_table
 ********************************************************************************
 qui summary_table $C_ec2, filename(covariates_resident) subset($L1)
 
-/*
+
 ********************************************************************************
 * Comparison between ATEs in Endline 1 and Endline 2 ***************************
 ********************************************************************************
@@ -52,7 +52,7 @@ qui summary_table $C_ec2, filename(covariates_resident) subset($L1)
          conf_length_max_c_ec2 ///
          forum_lastsuc_c_ec2   ///  
          conf_any_c_ec2) ///
-     nsims(10)
+     nsims(1000)
 
 ate_maker_year $land_conflict, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(land_conflict)
 
@@ -71,7 +71,7 @@ ate_maker_year $land_conflict, treat(assigned_ever) group1(resident_e1) group2(E
          lmg_forum_lastsuc_c_ec2 ///
          lmg_forum_inf_suc_c_ec2 ///
          lmg_conf_any_c_ec2) ///
-     nsims(10)
+     nsims(1000)
 
  ate_maker_year $all_conflict, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(all_conflict)
  ate_maker_year $comm_conflict, treat(assigned_ever) group1(ENDLINE_LEADER) group2(ENDLINE2_LEADER) controls1($comm_ctrls_apsr) controls2($comm_ctrls) filename(comm_conflict)
@@ -96,9 +96,9 @@ ate_maker_year $land_conflict, treat(assigned_ever) group1(resident_e1) group2(E
         conf_length_max_c_ec2 ///
          forum_lastsuc_c_ec2 ///
          conf_any_c_ec2) /// 
-     nsims(10)
+     nsims(1000)
 
-*/
+
 ********************************************************************************
 * Resident-level analysis ******************************************************
 ********************************************************************************
