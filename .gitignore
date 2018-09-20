@@ -253,4 +253,9 @@ TSWLatexianTemp*
 
 ### Vim
 *.swp
+
+*.swo
+
+*.out
+
 ##

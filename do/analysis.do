@@ -33,7 +33,7 @@ qui do do/tables_do/summary_table
 qui summary_table $C_ec2, filename(covariates_resident) subset($L1)
 
 
-local nsims = 2
+local nsims = 100
 ********************************************************************************
 * Comparison between ATEs in Endline 1 and Endline 2 ***************************
 ********************************************************************************

@@ -1,8 +1,9 @@
 #!/bin/bash
 #SBATCH --job-name=liberia
-#SBATCH --output=liberia.out
 #SBATCH --time=24:00:00
-#SBATCh --partition=broadwl
-#SBATCH --exlusive
-
+#SBATCH --partition=broadwl
+#SBATCH --mem=16000
+#SBATCH --cpus-per-task=4
+#SBATCH --output=liberia.out
+module load stata/15
 stata-mp  do master.do
