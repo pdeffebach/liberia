@@ -8511,4 +8511,583 @@ ctownpop_el2 {c |}{col 14}{res}{space 2}   215183{col 26}{space 2} 15219.47{col 
 . 
 {txt}end of do-file
 
+{com}. do do/analysis
+{txt}
+{com}. ********************************************************************************
+. * Set the directory for the frmttable ado file *********************************
+. ********************************************************************************
+. qui adopath ++ ./ado
+{txt}
+{com}. 
+. ********************************************************************************
+. * Import the analysis dataset **************************************************
+. ********************************************************************************
+. use data/ready_analysis, clear
+{txt}
+{com}. 
+. ********************************************************************************
+. * Set globals for analysis *****************************************************
+. ********************************************************************************
+. * Set the control variables
+. qui do do/set_controls 
+{txt}
+{com}. * Set the outcome variables 
+. qui do do/set_outcomes
+{txt}
+{com}. 
+. ********************************************************************************
+. * Initialize the ATE maker program *********************************************
+. ********************************************************************************
+. qui do do/tables_do/ate_maker
+{txt}
+{com}. qui do do/tables_do/adjust_p_values
+{txt}
+{com}. qui do do/tables_do/ate_maker_year
+{txt}
+{com}. set more off
+{txt}
+{com}. 
+. * Also initialize the summary table program ************************************
+. qui do do/tables_do/summary_table
+{txt}
+{com}. 
+. ********************************************************************************
+. * Make summary statistics of all covariates ************************************
+. ********************************************************************************
+. qui summary_table $C_ec2, filename(covariates_resident) subset($L1)
+{txt}
+{com}. 
+. /*
+> ********************************************************************************
+> * Comparison between ATEs in Endline 1 and Endline 2 ***************************
+> ********************************************************************************
+>  ate_maker_year  $land_conflict_paper, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(land_conflict_paper) ///
+>      adjustvarsg1(   ///
+>          anylndconf_u_ec2   ///  
+>          unrslv_lnd_conf_u_ec2 ///
+>          conf_any_u_ec2) ///
+>      adjustvarsg2(   ///
+>          anylndconf_u_ec2   ///  
+>          unrslv_lnd_conf_u_ec2 ///
+>          conf_any_u_ec2) ///
+>      extraadjustvarsg1(   ///
+>          forum_lastsuc_c_ec2   ///  
+>          conf_any_c_ec2) ///
+>      extraadjustvarsg2(   ///
+>          conf_length_max_c_ec2 ///
+>          forum_lastsuc_c_ec2   ///  
+>          conf_any_c_ec2) ///
+>      nsims(10)
+> 
+> ate_maker_year $land_conflict, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(land_conflict)
+> 
+>  ate_maker_year $all_conflict_paper, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(all_conflict_paper) ///
+>      adjustvarsg1( ///
+>          lmg_conf_u_ec2 ///
+>          lmg_unrslv_conf_u_ec2) ///
+>      adjustvarsg2( ///
+>          lmg_conf_u_ec2 ///
+>          lmg_unrslv_conf_u_ec2 ///
+>          lmg_conf_any_u_ec2) ///
+>      extraadjustvarsg1( ///
+>          lmg_forum_lastsuc_c_ec2 ///
+>          lmg_forum_inf_suc_c_ec2) ///
+>      extraadjustvarsg2( ///
+>          lmg_forum_lastsuc_c_ec2 ///
+>          lmg_forum_inf_suc_c_ec2 ///
+>          lmg_conf_any_c_ec2) ///
+>      nsims(10)
+> 
+>  ate_maker_year $all_conflict, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(all_conflict)
+>  ate_maker_year $comm_conflict, treat(assigned_ever) group1(ENDLINE_LEADER) group2(ENDLINE2_LEADER) controls1($comm_ctrls_apsr) controls2($comm_ctrls) filename(comm_conflict)
+> */
+.  ate_maker_year $conflict_adj_p, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(conflict_adj_p) ///
+>      adjustvarsg1( ///
+>          anylndconf_u_ec2   ///  
+>          unrslv_lnd_conf_u_ec2 ///
+>          conf_any_u_ec2 /// 
+>          forum_lastsuc_c_ec2 ///
+>          conf_any_c_ec2 ) ///
+>      adjustvarsg2( ///
+>          anylndconf_u_ec2   ///  
+>          unrslv_lnd_conf_u_ec2 ///
+>          conf_any_u_ec2) ///
+>     extraadjustvarsg1( ///
+>         lmg_conf_u_ec2 ///
+>         lmg_unrslv_conf_u_ec2 ///
+>         lmg_forum_lastsuc_c_ec2 ///
+>         lmg_forum_inf_suc_c_ec2) ///
+>     extraadjustvarsg2( ///
+>         conf_length_max_c_ec2 ///
+>          forum_lastsuc_c_ec2 ///
+>          conf_any_c_ec2) /// 
+>      nsims(10)
+{txt}Estimating the family-wise {it:p}-values for {res}assigned_ever{txt} in the following set of regressions:
+{res}svy: regress anylndconf_u_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_imputedhst noland farm_sizehst land_sizehst housetake_dum lndtake_dum district1 district2 district3 district4 district5 district6 district7 district8 district9 district10 district11 district12 district13 district14 vsmall small small2 small3 quartdummy cedulevel_bc ctownhh_log_el cwealthindex_bc cviol_experienced_bc clndtake_bc cviol_scale_bc clandconf_scale_bc cwitchcraft_scale_bc cpalaviol_imputed_bc cprog_ldr_beliefs_bc cattitudes_tribe_bc crelmarry_bc assigned_nov trainee
+svy: regress unrslv_lnd_conf_u_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_imputedhst noland farm_sizehst land_sizehst housetake_dum lndtake_dum district1 district2 district3 district4 district5 district6 district7 district8 district9 district10 district11 district12 district13 district14 vsmall small small2 small3 quartdummy cedulevel_bc ctownhh_log_el cwealthindex_bc cviol_experienced_bc clndtake_bc cviol_scale_bc clandconf_scale_bc cwitchcraft_scale_bc cpalaviol_imputed_bc cprog_ldr_beliefs_bc cattitudes_tribe_bc crelmarry_bc assigned_nov trainee
+svy: regress conf_any_u_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_imputedhst noland farm_sizehst land_sizehst housetake_dum lndtake_dum district1 district2 district3 district4 district5 district6 district7 district8 district9 district10 district11 district12 district13 district14 vsmall small small2 small3 quartdummy cedulevel_bc ctownhh_log_el cwealthindex_bc cviol_experienced_bc clndtake_bc cviol_scale_bc clandconf_scale_bc cwitchcraft_scale_bc cpalaviol_imputed_bc cprog_ldr_beliefs_bc cattitudes_tribe_bc crelmarry_bc assigned_nov trainee
+svy: regress forum_lastsuc_c_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_imputedhst noland farm_sizehst land_sizehst housetake_dum lndtake_dum district1 district2 district3 district4 district5 district6 district7 district8 district9 district10 district11 district12 district13 district14 vsmall small small2 small3 quartdummy cedulevel_bc ctownhh_log_el cwealthindex_bc cviol_experienced_bc clndtake_bc cviol_scale_bc clandconf_scale_bc cwitchcraft_scale_bc cpalaviol_imputed_bc cprog_ldr_beliefs_bc cattitudes_tribe_bc crelmarry_bc assigned_nov trainee
+svy: regress conf_any_c_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_imputedhst noland farm_sizehst land_sizehst housetake_dum lndtake_dum district1 district2 district3 district4 district5 district6 district7 district8 district9 district10 district11 district12 district13 district14 vsmall small small2 small3 quartdummy cedulevel_bc ctownhh_log_el cwealthindex_bc cviol_experienced_bc clndtake_bc cviol_scale_bc clandconf_scale_bc cwitchcraft_scale_bc cpalaviol_imputed_bc cprog_ldr_beliefs_bc cattitudes_tribe_bc crelmarry_bc assigned_nov trainee
+
+     {txt}{c TLC}{hline 126}{c TRC}
+  1. {c |}                                                              k                                                               {c |}
+     {c |}                                                              {res}1                                                               {txt}{c |}
+     {c LT}{hline 126}{c RT}
+     {c |} model                                                                                                                        {c |}
+     {c |} {res}svy: regress anylndconf_u_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashear.. {txt}{c |}
+     {c LT}{hline 25}{c TT}{hline 17}{c TT}{hline 14}{c TT}{hline 13}{c TT}{hline 13}{c TT}{hline 11}{c TT}{hline 13}{c TT}{hline 13}{c RT}
+     {c |}                outcome  {c |}      regressor  {c |}        coef  {c |}     stderr  {c |}          p  {c |}  pwyoung  {c |}      pbonf  {c |}     psidak  {c |}
+     {c |}  {res}     anylndconf_u_ec2  {txt}{c |}  {res}assigned_ever  {txt}{c |}  {res} .00273361  {txt}{c |}  {res}.01632301  {txt}{c |}  {res}.86714098  {txt}{c |}  {res}     .9  {txt}{c |}  {res}        1  {txt}{c |}  {res}.86714098  {txt}{c |}
+     {c BLC}{hline 25}{c BT}{hline 17}{c BT}{hline 14}{c BT}{hline 13}{c BT}{hline 13}{c BT}{hline 11}{c BT}{hline 13}{c BT}{hline 13}{c BRC}
+
+     {c TLC}{hline 126}{c TRC}
+  2. {c |}                                                              k                                                               {c |}
+     {c |}                                                              {res}2                                                               {txt}{c |}
+     {c LT}{hline 126}{c RT}
+     {c |} model                                                                                                                        {c |}
+     {c |} {res}svy: regress unrslv_lnd_conf_u_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority ca.. {txt}{c |}
+     {c LT}{hline 25}{c TT}{hline 17}{c TT}{hline 14}{c TT}{hline 13}{c TT}{hline 13}{c TT}{hline 11}{c TT}{hline 13}{c TT}{hline 13}{c RT}
+     {c |}                outcome  {c |}      regressor  {c |}        coef  {c |}     stderr  {c |}          p  {c |}  pwyoung  {c |}      pbonf  {c |}     psidak  {c |}
+     {c |}  {res}unrslv_lnd_conf_u_ec2  {txt}{c |}  {res}assigned_ever  {txt}{c |}  {res}-.01951493  {txt}{c |}  {res}.00792913  {txt}{c |}  {res}.01455042  {txt}{c |}  {res}      0  {txt}{c |}  {res}.05820169  {txt}{c |}  {res}.05694368  {txt}{c |}
+     {c BLC}{hline 25}{c BT}{hline 17}{c BT}{hline 14}{c BT}{hline 13}{c BT}{hline 13}{c BT}{hline 11}{c BT}{hline 13}{c BT}{hline 13}{c BRC}
+
+     {c TLC}{hline 126}{c TRC}
+  3. {c |}                                                              k                                                               {c |}
+     {c |}                                                              {res}3                                                               {txt}{c |}
+     {c LT}{hline 126}{c RT}
+     {c |} model                                                                                                                        {c |}
+     {c |} {res}svy: regress conf_any_u_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_.. {txt}{c |}
+     {c LT}{hline 25}{c TT}{hline 17}{c TT}{hline 14}{c TT}{hline 13}{c TT}{hline 13}{c TT}{hline 11}{c TT}{hline 13}{c TT}{hline 13}{c RT}
+     {c |}                outcome  {c |}      regressor  {c |}        coef  {c |}     stderr  {c |}          p  {c |}  pwyoung  {c |}      pbonf  {c |}     psidak  {c |}
+     {c |}  {res}       conf_any_u_ec2  {txt}{c |}  {res}assigned_ever  {txt}{c |}  {res}-.00991586  {txt}{c |}  {res}.01168469  {txt}{c |}  {res}.39693489  {txt}{c |}  {res}     .4  {txt}{c |}  {res}        1  {txt}{c |}  {res}.78067275  {txt}{c |}
+     {c BLC}{hline 25}{c BT}{hline 17}{c BT}{hline 14}{c BT}{hline 13}{c BT}{hline 13}{c BT}{hline 11}{c BT}{hline 13}{c BT}{hline 13}{c BRC}
+
+     {c TLC}{hline 126}{c TRC}
+  4. {c |}                                                              k                                                               {c |}
+     {c |}                                                              {res}4                                                               {txt}{c |}
+     {c LT}{hline 126}{c RT}
+     {c |} model                                                                                                                        {c |}
+     {c |} {res}svy: regress forum_lastsuc_c_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cash.. {txt}{c |}
+     {c LT}{hline 25}{c TT}{hline 17}{c TT}{hline 14}{c TT}{hline 13}{c TT}{hline 13}{c TT}{hline 11}{c TT}{hline 13}{c TT}{hline 13}{c RT}
+     {c |}                outcome  {c |}      regressor  {c |}        coef  {c |}     stderr  {c |}          p  {c |}  pwyoung  {c |}      pbonf  {c |}     psidak  {c |}
+     {c |}  {res}  forum_lastsuc_c_ec2  {txt}{c |}  {res}assigned_ever  {txt}{c |}  {res} .07205172  {txt}{c |}  {res}.02745195  {txt}{c |}  {res}.00925766  {txt}{c |}  {res}      0  {txt}{c |}  {res}.04628829  {txt}{c |}  {res}.04543914  {txt}{c |}
+     {c BLC}{hline 25}{c BT}{hline 17}{c BT}{hline 14}{c BT}{hline 13}{c BT}{hline 13}{c BT}{hline 11}{c BT}{hline 13}{c BT}{hline 13}{c BRC}
+
+     {c TLC}{hline 126}{c TRC}
+  5. {c |}                                                              k                                                               {c |}
+     {c |}                                                              {res}5                                                               {txt}{c |}
+     {c LT}{hline 126}{c RT}
+     {c |} model                                                                                                                        {c |}
+     {c |} {res}svy: regress conf_any_c_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_.. {txt}{c |}
+     {c LT}{hline 25}{c TT}{hline 17}{c TT}{hline 14}{c TT}{hline 13}{c TT}{hline 13}{c TT}{hline 11}{c TT}{hline 13}{c TT}{hline 13}{c RT}
+     {c |}                outcome  {c |}      regressor  {c |}        coef  {c |}     stderr  {c |}          p  {c |}  pwyoung  {c |}      pbonf  {c |}     psidak  {c |}
+     {c |}  {res}       conf_any_c_ec2  {txt}{c |}  {res}assigned_ever  {txt}{c |}  {res}-.02399204  {txt}{c |}  {res}.03516968  {txt}{c |}  {res} .4958148  {txt}{c |}  {res}     .6  {txt}{c |}  {res}        1  {txt}{c |}  {res}.78067275  {txt}{c |}
+     {c BLC}{hline 25}{c BT}{hline 17}{c BT}{hline 14}{c BT}{hline 13}{c BT}{hline 13}{c BT}{hline 11}{c BT}{hline 13}{c BT}{hline 13}{c BRC}
+{res}{txt}Estimating the family-wise {it:p}-values for {res}assigned_ever{txt} in the following set of regressions:
+{res}svy: regress anylndconf_u_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_imputedhst noland farm_sizehst houseoccupy houseclaim housepalavapostwar farmclaim farmpalavapostwar district1 district2 district3 district4 district5 district6 district7 district8 district9 district10 district11 district12 district13 district14 vsmall small small2 small3 quartdummy cedulevel_bc ctownhh_log_el2 cwealthindex_bc cviol_experienced_bc clndtake_bc cviol_scale_bc clandconf_scale_bc cwitchcraft_scale_bc cpalaviol_imputed_bc cprog_ldr_beliefs_bc cattitudes_tribe_bc crelmarry_bc
+svy: regress unrslv_lnd_conf_u_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_imputedhst noland farm_sizehst houseoccupy houseclaim housepalavapostwar farmclaim farmpalavapostwar district1 district2 district3 district4 district5 district6 district7 district8 district9 district10 district11 district12 district13 district14 vsmall small small2 small3 quartdummy cedulevel_bc ctownhh_log_el2 cwealthindex_bc cviol_experienced_bc clndtake_bc cviol_scale_bc clandconf_scale_bc cwitchcraft_scale_bc cpalaviol_imputed_bc cprog_ldr_beliefs_bc cattitudes_tribe_bc crelmarry_bc
+svy: regress conf_any_u_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_imputedhst noland farm_sizehst houseoccupy houseclaim housepalavapostwar farmclaim farmpalavapostwar district1 district2 district3 district4 district5 district6 district7 district8 district9 district10 district11 district12 district13 district14 vsmall small small2 small3 quartdummy cedulevel_bc ctownhh_log_el2 cwealthindex_bc cviol_experienced_bc clndtake_bc cviol_scale_bc clandconf_scale_bc cwitchcraft_scale_bc cpalaviol_imputed_bc cprog_ldr_beliefs_bc cattitudes_tribe_bc crelmarry_bc
+
+     {txt}{c TLC}{hline 126}{c TRC}
+  1. {c |}                                                              k                                                               {c |}
+     {c |}                                                              {res}1                                                               {txt}{c |}
+     {c LT}{hline 126}{c RT}
+     {c |} model                                                                                                                        {c |}
+     {c |} {res}svy: regress anylndconf_u_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashear.. {txt}{c |}
+     {c LT}{hline 25}{c TT}{hline 17}{c TT}{hline 14}{c TT}{hline 13}{c TT}{hline 13}{c TT}{hline 11}{c TT}{hline 13}{c TT}{hline 13}{c RT}
+     {c |}                outcome  {c |}      regressor  {c |}        coef  {c |}     stderr  {c |}          p  {c |}  pwyoung  {c |}      pbonf  {c |}     psidak  {c |}
+     {c |}  {res}     anylndconf_u_ec2  {txt}{c |}  {res}assigned_ever  {txt}{c |}  {res} .00762446  {txt}{c |}  {res}.01060374  {txt}{c |}  {res}.47281581  {txt}{c |}  {res}     .7  {txt}{c |}  {res}.94563163  {txt}{c |}  {res}.72207683  {txt}{c |}
+     {c BLC}{hline 25}{c BT}{hline 17}{c BT}{hline 14}{c BT}{hline 13}{c BT}{hline 13}{c BT}{hline 11}{c BT}{hline 13}{c BT}{hline 13}{c BRC}
+
+     {c TLC}{hline 126}{c TRC}
+  2. {c |}                                                              k                                                               {c |}
+     {c |}                                                              {res}2                                                               {txt}{c |}
+     {c LT}{hline 126}{c RT}
+     {c |} model                                                                                                                        {c |}
+     {c |} {res}svy: regress unrslv_lnd_conf_u_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority ca.. {txt}{c |}
+     {c LT}{hline 25}{c TT}{hline 17}{c TT}{hline 14}{c TT}{hline 13}{c TT}{hline 13}{c TT}{hline 11}{c TT}{hline 13}{c TT}{hline 13}{c RT}
+     {c |}                outcome  {c |}      regressor  {c |}        coef  {c |}     stderr  {c |}          p  {c |}  pwyoung  {c |}      pbonf  {c |}     psidak  {c |}
+     {c |}  {res}unrslv_lnd_conf_u_ec2  {txt}{c |}  {res}assigned_ever  {txt}{c |}  {res} .00151743  {txt}{c |}  {res}.00464563  {txt}{c |}  {res}.74422593  {txt}{c |}  {res}     .8  {txt}{c |}  {res}.94563163  {txt}{c |}  {res}.74422593  {txt}{c |}
+     {c BLC}{hline 25}{c BT}{hline 17}{c BT}{hline 14}{c BT}{hline 13}{c BT}{hline 13}{c BT}{hline 11}{c BT}{hline 13}{c BT}{hline 13}{c BRC}
+
+     {c TLC}{hline 126}{c TRC}
+  3. {c |}                                                              k                                                               {c |}
+     {c |}                                                              {res}3                                                               {txt}{c |}
+     {c LT}{hline 126}{c RT}
+     {c |} model                                                                                                                        {c |}
+     {c |} {res}svy: regress conf_any_u_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_.. {txt}{c |}
+     {c LT}{hline 25}{c TT}{hline 17}{c TT}{hline 14}{c TT}{hline 13}{c TT}{hline 13}{c TT}{hline 11}{c TT}{hline 13}{c TT}{hline 13}{c RT}
+     {c |}                outcome  {c |}      regressor  {c |}        coef  {c |}     stderr  {c |}          p  {c |}  pwyoung  {c |}      pbonf  {c |}     psidak  {c |}
+     {c |}  {res}       conf_any_u_ec2  {txt}{c |}  {res}assigned_ever  {txt}{c |}  {res}-.01208955  {txt}{c |}  {res} .0058264  {txt}{c |}  {res}.03905157  {txt}{c |}  {res}      0  {txt}{c |}  {res}.11715472  {txt}{c |}  {res} .1126392  {txt}{c |}
+     {c BLC}{hline 25}{c BT}{hline 17}{c BT}{hline 14}{c BT}{hline 13}{c BT}{hline 13}{c BT}{hline 11}{c BT}{hline 13}{c BT}{hline 13}{c BRC}
+{res}{txt}Estimating the family-wise {it:p}-values for {res}assigned_ever{txt} in the following set of regressions:
+{res}svy: regress lmg_conf_u_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_imputedhst noland farm_sizehst land_sizehst housetake_dum lndtake_dum district1 district2 district3 district4 district5 district6 district7 district8 district9 district10 district11 district12 district13 district14 vsmall small small2 small3 quartdummy cedulevel_bc ctownhh_log_el cwealthindex_bc cviol_experienced_bc clndtake_bc cviol_scale_bc clandconf_scale_bc cwitchcraft_scale_bc cpalaviol_imputed_bc cprog_ldr_beliefs_bc cattitudes_tribe_bc crelmarry_bc assigned_nov trainee
+svy: regress lmg_unrslv_conf_u_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_imputedhst noland farm_sizehst land_sizehst housetake_dum lndtake_dum district1 district2 district3 district4 district5 district6 district7 district8 district9 district10 district11 district12 district13 district14 vsmall small small2 small3 quartdummy cedulevel_bc ctownhh_log_el cwealthindex_bc cviol_experienced_bc clndtake_bc cviol_scale_bc clandconf_scale_bc cwitchcraft_scale_bc cpalaviol_imputed_bc cprog_ldr_beliefs_bc cattitudes_tribe_bc crelmarry_bc assigned_nov trainee
+svy: regress lmg_forum_lastsuc_c_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_imputedhst noland farm_sizehst land_sizehst housetake_dum lndtake_dum district1 district2 district3 district4 district5 district6 district7 district8 district9 district10 district11 district12 district13 district14 vsmall small small2 small3 quartdummy cedulevel_bc ctownhh_log_el cwealthindex_bc cviol_experienced_bc clndtake_bc cviol_scale_bc clandconf_scale_bc cwitchcraft_scale_bc cpalaviol_imputed_bc cprog_ldr_beliefs_bc cattitudes_tribe_bc crelmarry_bc assigned_nov trainee
+svy: regress lmg_forum_inf_suc_c_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_imputedhst noland farm_sizehst land_sizehst housetake_dum lndtake_dum district1 district2 district3 district4 district5 district6 district7 district8 district9 district10 district11 district12 district13 district14 vsmall small small2 small3 quartdummy cedulevel_bc ctownhh_log_el cwealthindex_bc cviol_experienced_bc clndtake_bc cviol_scale_bc clandconf_scale_bc cwitchcraft_scale_bc cpalaviol_imputed_bc cprog_ldr_beliefs_bc cattitudes_tribe_bc crelmarry_bc assigned_nov trainee
+
+     {txt}{c TLC}{hline 126}{c TRC}
+  1. {c |}                                                              k                                                               {c |}
+     {c |}                                                              {res}1                                                               {txt}{c |}
+     {c LT}{hline 126}{c RT}
+     {c |} model                                                                                                                        {c |}
+     {c |} {res}svy: regress lmg_conf_u_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_.. {txt}{c |}
+     {c LT}{hline 26}{c TT}{hline 16}{c TT}{hline 14}{c TT}{hline 13}{c TT}{hline 13}{c TT}{hline 11}{c TT}{hline 13}{c TT}{hline 13}{c RT}
+     {c |}                 outcome  {c |}     regressor  {c |}        coef  {c |}     stderr  {c |}          p  {c |}  pwyoung  {c |}      pbonf  {c |}     psidak  {c |}
+     {c |} {res}         lmg_conf_u_ec2  {txt}{c |} {res}assigned_ever  {txt}{c |}  {res} .02160039  {txt}{c |}  {res}.01756022  {txt}{c |}  {res}.21986823  {txt}{c |}  {res}     .5  {txt}{c |}  {res}.65960468  {txt}{c |}  {res}.52520745  {txt}{c |}
+     {c BLC}{hline 26}{c BT}{hline 16}{c BT}{hline 14}{c BT}{hline 13}{c BT}{hline 13}{c BT}{hline 11}{c BT}{hline 13}{c BT}{hline 13}{c BRC}
+
+     {c TLC}{hline 126}{c TRC}
+  2. {c |}                                                              k                                                               {c |}
+     {c |}                                                              {res}2                                                               {txt}{c |}
+     {c LT}{hline 126}{c RT}
+     {c |} model                                                                                                                        {c |}
+     {c |} {res}svy: regress lmg_unrslv_conf_u_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority ca.. {txt}{c |}
+     {c LT}{hline 26}{c TT}{hline 16}{c TT}{hline 14}{c TT}{hline 13}{c TT}{hline 13}{c TT}{hline 11}{c TT}{hline 13}{c TT}{hline 13}{c RT}
+     {c |}                 outcome  {c |}     regressor  {c |}        coef  {c |}     stderr  {c |}          p  {c |}  pwyoung  {c |}      pbonf  {c |}     psidak  {c |}
+     {c |} {res}  lmg_unrslv_conf_u_ec2  {txt}{c |} {res}assigned_ever  {txt}{c |}  {res}-.01298095  {txt}{c |}  {res}.01126825  {txt}{c |}  {res}.25046527  {txt}{c |}  {res}     .5  {txt}{c |}  {res}.65960468  {txt}{c |}  {res}.52520745  {txt}{c |}
+     {c BLC}{hline 26}{c BT}{hline 16}{c BT}{hline 14}{c BT}{hline 13}{c BT}{hline 13}{c BT}{hline 11}{c BT}{hline 13}{c BT}{hline 13}{c BRC}
+
+     {c TLC}{hline 126}{c TRC}
+  3. {c |}                                                              k                                                               {c |}
+     {c |}                                                              {res}3                                                               {txt}{c |}
+     {c LT}{hline 126}{c RT}
+     {c |} model                                                                                                                        {c |}
+     {c |} {res}svy: regress lmg_forum_lastsuc_c_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority .. {txt}{c |}
+     {c LT}{hline 26}{c TT}{hline 16}{c TT}{hline 14}{c TT}{hline 13}{c TT}{hline 13}{c TT}{hline 11}{c TT}{hline 13}{c TT}{hline 13}{c RT}
+     {c |}                 outcome  {c |}     regressor  {c |}        coef  {c |}     stderr  {c |}          p  {c |}  pwyoung  {c |}      pbonf  {c |}     psidak  {c |}
+     {c |} {res}lmg_forum_lastsuc_c_ec2  {txt}{c |} {res}assigned_ever  {txt}{c |}  {res} .05103377  {txt}{c |}  {res}.02377062  {txt}{c |}  {res}.03281006  {txt}{c |}  {res}     .2  {txt}{c |}  {res}.13124023  {txt}{c |}  {res}.12492135  {txt}{c |}
+     {c BLC}{hline 26}{c BT}{hline 16}{c BT}{hline 14}{c BT}{hline 13}{c BT}{hline 13}{c BT}{hline 11}{c BT}{hline 13}{c BT}{hline 13}{c BRC}
+
+     {c TLC}{hline 126}{c TRC}
+  4. {c |}                                                              k                                                               {c |}
+     {c |}                                                              {res}4                                                               {txt}{c |}
+     {c LT}{hline 126}{c RT}
+     {c |} model                                                                                                                        {c |}
+     {c |} {res}svy: regress lmg_forum_inf_suc_c_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority .. {txt}{c |}
+     {c LT}{hline 26}{c TT}{hline 16}{c TT}{hline 14}{c TT}{hline 13}{c TT}{hline 13}{c TT}{hline 11}{c TT}{hline 13}{c TT}{hline 13}{c RT}
+     {c |}                 outcome  {c |}     regressor  {c |}        coef  {c |}     stderr  {c |}          p  {c |}  pwyoung  {c |}      pbonf  {c |}     psidak  {c |}
+     {c |} {res}lmg_forum_inf_suc_c_ec2  {txt}{c |} {res}assigned_ever  {txt}{c |}  {res} .01836079  {txt}{c |}  {res}.02539296  {txt}{c |}  {res}.47034644  {txt}{c |}  {res}     .5  {txt}{c |}  {res}.65960468  {txt}{c |}  {res}.52520745  {txt}{c |}
+     {c BLC}{hline 26}{c BT}{hline 16}{c BT}{hline 14}{c BT}{hline 13}{c BT}{hline 13}{c BT}{hline 11}{c BT}{hline 13}{c BT}{hline 13}{c BRC}
+{res}{txt}Estimating the family-wise {it:p}-values for {res}assigned_ever{txt} in the following set of regressions:
+{res}svy: regress conf_length_max_c_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_imputedhst noland farm_sizehst houseoccupy houseclaim housepalavapostwar farmclaim farmpalavapostwar district1 district2 district3 district4 district5 district6 district7 district8 district9 district10 district11 district12 district13 district14 vsmall small small2 small3 quartdummy cedulevel_bc ctownhh_log_el2 cwealthindex_bc cviol_experienced_bc clndtake_bc cviol_scale_bc clandconf_scale_bc cwitchcraft_scale_bc cpalaviol_imputed_bc cprog_ldr_beliefs_bc cattitudes_tribe_bc crelmarry_bc
+svy: regress forum_lastsuc_c_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_imputedhst noland farm_sizehst houseoccupy houseclaim housepalavapostwar farmclaim farmpalavapostwar district1 district2 district3 district4 district5 district6 district7 district8 district9 district10 district11 district12 district13 district14 vsmall small small2 small3 quartdummy cedulevel_bc ctownhh_log_el2 cwealthindex_bc cviol_experienced_bc clndtake_bc cviol_scale_bc clandconf_scale_bc cwitchcraft_scale_bc cpalaviol_imputed_bc cprog_ldr_beliefs_bc cattitudes_tribe_bc crelmarry_bc
+svy: regress conf_any_c_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_imputedhst noland farm_sizehst houseoccupy houseclaim housepalavapostwar farmclaim farmpalavapostwar district1 district2 district3 district4 district5 district6 district7 district8 district9 district10 district11 district12 district13 district14 vsmall small small2 small3 quartdummy cedulevel_bc ctownhh_log_el2 cwealthindex_bc cviol_experienced_bc clndtake_bc cviol_scale_bc clandconf_scale_bc cwitchcraft_scale_bc cpalaviol_imputed_bc cprog_ldr_beliefs_bc cattitudes_tribe_bc crelmarry_bc
+
+     {txt}{c TLC}{hline 126}{c TRC}
+  1. {c |}                                                              k                                                               {c |}
+     {c |}                                                              {res}1                                                               {txt}{c |}
+     {c LT}{hline 126}{c RT}
+     {c |} model                                                                                                                        {c |}
+     {c |} {res}svy: regress conf_length_max_c_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority ca.. {txt}{c |}
+     {c LT}{hline 25}{c TT}{hline 17}{c TT}{hline 14}{c TT}{hline 13}{c TT}{hline 13}{c TT}{hline 11}{c TT}{hline 13}{c TT}{hline 13}{c RT}
+     {c |}                outcome  {c |}      regressor  {c |}        coef  {c |}     stderr  {c |}          p  {c |}  pwyoung  {c |}      pbonf  {c |}     psidak  {c |}
+     {c |}  {res}conf_length_max_c_ec2  {txt}{c |}  {res}assigned_ever  {txt}{c |}  {res} 3.6418452  {txt}{c |}  {res}2.8856411  {txt}{c |}  {res}.20849987  {txt}{c |}  {res}     .5  {txt}{c |}  {res}.41699973  {txt}{c |}  {res}.37352754  {txt}{c |}
+     {c BLC}{hline 25}{c BT}{hline 17}{c BT}{hline 14}{c BT}{hline 13}{c BT}{hline 13}{c BT}{hline 11}{c BT}{hline 13}{c BT}{hline 13}{c BRC}
+
+     {c TLC}{hline 126}{c TRC}
+  2. {c |}                                                              k                                                               {c |}
+     {c |}                                                              {res}2                                                               {txt}{c |}
+     {c LT}{hline 126}{c RT}
+     {c |} model                                                                                                                        {c |}
+     {c |} {res}svy: regress forum_lastsuc_c_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cash.. {txt}{c |}
+     {c LT}{hline 25}{c TT}{hline 17}{c TT}{hline 14}{c TT}{hline 13}{c TT}{hline 13}{c TT}{hline 11}{c TT}{hline 13}{c TT}{hline 13}{c RT}
+     {c |}                outcome  {c |}      regressor  {c |}        coef  {c |}     stderr  {c |}          p  {c |}  pwyoung  {c |}      pbonf  {c |}     psidak  {c |}
+     {c |}  {res}  forum_lastsuc_c_ec2  {txt}{c |}  {res}assigned_ever  {txt}{c |}  {res}-.02415475  {txt}{c |}  {res}.04632625  {txt}{c |}  {res}.60270146  {txt}{c |}  {res}     .7  {txt}{c |}  {res}.60270146  {txt}{c |}  {res}.60270146  {txt}{c |}
+     {c BLC}{hline 25}{c BT}{hline 17}{c BT}{hline 14}{c BT}{hline 13}{c BT}{hline 13}{c BT}{hline 11}{c BT}{hline 13}{c BT}{hline 13}{c BRC}
+
+     {c TLC}{hline 126}{c TRC}
+  3. {c |}                                                              k                                                               {c |}
+     {c |}                                                              {res}3                                                               {txt}{c |}
+     {c LT}{hline 126}{c RT}
+     {c |} model                                                                                                                        {c |}
+     {c |} {res}svy: regress conf_any_c_ec2 assigned_ever ageover60 age40_60 age20_40 yrs_edu female stranger christian minority cashearn_.. {txt}{c |}
+     {c LT}{hline 25}{c TT}{hline 17}{c TT}{hline 14}{c TT}{hline 13}{c TT}{hline 13}{c TT}{hline 11}{c TT}{hline 13}{c TT}{hline 13}{c RT}
+     {c |}                outcome  {c |}      regressor  {c |}        coef  {c |}     stderr  {c |}          p  {c |}  pwyoung  {c |}      pbonf  {c |}     psidak  {c |}
+     {c |}  {res}       conf_any_c_ec2  {txt}{c |}  {res}assigned_ever  {txt}{c |}  {res}-.19240323  {txt}{c |}  {res}.04682541  {txt}{c |}  {res}.00005941  {txt}{c |}  {res}      0  {txt}{c |}  {res}.00017823  {txt}{c |}  {res}.00017821  {txt}{c |}
+     {c BLC}{hline 25}{c BT}{hline 17}{c BT}{hline 14}{c BT}{hline 13}{c BT}{hline 13}{c BT}{hline 11}{c BT}{hline 13}{c BT}{hline 13}{c BRC}
+{res}{txt}warning: matrix in ctitles option has varying size rows:
+   "", "\uline{\hfill Endline 1 \hfill}", "", "", "", "", "", "", "\uline{\hfill Endline 2 \hfill}", "", "", "", "", "" \ "", "", "", "", "ITT /", , "", "", "", "", "ITT /", "", "", "", "" \ "", "Control", "", "", "control", "Est.", "WY Adj.", "Holms Adj" "Control", "", "", "control", "Est.", "WY Adj.", "Holms Adj" \ "Dependent Variable", "mean", "N", "ITT", "mean (\%)", "p-val", "p-val", "p-val", "mean", "N", "ITT", "mean (\%)", "p-val", "p-val", "p-val" \ "", "(1)", "(2)", "(3)", "(4)", "(5)", "(6)", "(7)", "(8)", "(9)", "(10)", "(11)", "(12)", "(13)", "(14)"
+{res}
+{txt}{center:{hline 130}}
+{center:{txt}{lalign 65:}{txt}{center 33:\uline{\hfill Endline 1 \hfill}}{txt}{center 7:}{txt}{center 12:}{txt}{center 11:}}
+{center:{txt}{lalign 65:}{txt}{center 33:}{txt}{center 7:}{txt}{center 12:}{txt}{center 11:ITT /}}
+{center:{txt}{lalign 65:}{txt}{center 33:Control}{txt}{center 7:}{txt}{center 12:}{txt}{center 11:control}}
+{center:{txt}{lalign 65:Dependent Variable}{txt}{center 33:mean}{txt}{center 7:N}{txt}{center 12:ITT}{txt}{center 11:mean (\%)}}
+{center:{txt}{lalign 65:}{txt}{center 33:(1)}{txt}{center 7:(2)}{txt}{center 12:(3)}{txt}{center 11:(4)}}
+{txt}{center:{hline 130}}
+{center:{txt}{lalign 65:\textbf{Panel A: Land dispute outomes for all residents}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:Any serious land dispute}{res}{center 33:0.221}{res}{center 7:5,435}{res}{center 12:0.003}{res}{center 11:1.2}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.016]}{res}{center 11:}}
+{center:{txt}{lalign 65:Any unresolved land dispute}{res}{center 33:0.070}{res}{center 7:5,435}{res}{center 12:-0.020}{res}{center 11:-28.0}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.008]**}{res}{center 11:}}
+{center:{txt}{lalign 65:Any threats, property damage, or violence}{res}{center 33:0.122}{res}{center 7:5,435}{res}{center 12:-0.010}{res}{center 11:-8.1}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.012]}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Property damage or violence in land dispute}{res}{center 33:0.091}{res}{center 7:5,435}{res}{center 12:-0.012}{res}{center 11:-13.2}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.009]}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Threats}{res}{center 33:0.114}{res}{center 7:5,435}{res}{center 12:-0.006}{res}{center 11:-5.3}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.011]}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Property damage}{res}{center 33:0.041}{res}{center 7:5,435}{res}{center 12:-0.013}{res}{center 11:-32.4}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.006]**}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Violence}{res}{center 33:0.077}{res}{center 7:5,435}{res}{center 12:-0.007}{res}{center 11:-8.7}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.008]}{res}{center 11:}}
+{center:{txt}{lalign 65:\textbf{Panel B: Conditional on a land dispute}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:Length of maximum land conflict}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:Resolved land dispute}{res}{center 33:0.684}{res}{center 7:1,212}{res}{center 12:0.072}{res}{center 11:10.5}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.027]***}{res}{center 11:}}
+{center:{txt}{lalign 65:Any threats, property damage, or violence \phantom{}}{res}{center 33:0.554}{res}{center 7:1,212}{res}{center 12:-0.024}{res}{center 11:-4.3}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.035]}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Property damage or violence \tab}{res}{center 33:0.411}{res}{center 7:1,212}{res}{center 12:-0.037}{res}{center 11:-9.1}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.030]}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Threats \phantom{}}{res}{center 33:0.515}{res}{center 7:1,212}{res}{center 12:-0.013}{res}{center 11:-2.5}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.035]}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Property damage \phantom{}}{res}{center 33:0.186}{res}{center 7:1,212}{res}{center 12:-0.051}{res}{center 11:-27.4}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.025]**}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Violence \phantom{}}{res}{center 33:0.349}{res}{center 7:1,212}{res}{center 12:-0.022}{res}{center 11:-6.3}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.028]}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Witchcraft \phantom{}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:\textbf{Panel C: General dispute outcomes for all residents}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:Any serious dispute}{res}{center 33:0.299}{res}{center 7:5,435}{res}{center 12:0.022}{res}{center 11:7.2}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.018]}{res}{center 11:}}
+{center:{txt}{lalign 65:Any unresolved dispute}{res}{center 33:0.118}{res}{center 7:5,435}{res}{center 12:-0.013}{res}{center 11:-11.0}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.011]}{res}{center 11:}}
+{center:{txt}{lalign 65:\phantom{} Any threats, property damage, or violence}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:\textbf{Panel D: Conditional on a dispute}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:Resolved dispute}{res}{center 33:0.676}{res}{center 7:1,670}{res}{center 12:0.051}{res}{center 11:7.5}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.024]**}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Resolved via informal mechanism}{res}{center 33:0.247}{res}{center 7:1,671}{res}{center 12:0.018}{res}{center 11:7.4}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.025]}{res}{center 11:}}
+{center:{txt}{lalign 65:\phantom{} Any threats, property damage, or violence \phantom{}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Property damage or violence \phantom{}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Threats \phantom{}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Property damage \phantom{}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Violence \phantom{}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{txt}{center:{hline 130}}
+
+
+{txt}{center:{hline 111}}
+{center:{txt}{lalign 65:}{txt}{center 7:}{txt}{center 26:}{txt}{center 11:}}
+{center:{txt}{lalign 65:}{txt}{center 7:}{txt}{center 26:}{txt}{center 11:}}
+{center:{txt}{lalign 65:}{txt}{center 7:Est.}{txt}{center 26:WY Adj.}{txt}{center 11:Holms Adj}}
+{center:{txt}{lalign 65:Dependent Variable}{txt}{center 7:p-val}{txt}{center 26:p-val}{txt}{center 11:p-val}}
+{center:{txt}{lalign 65:}{txt}{center 7:(5)}{txt}{center 26:(6)}{txt}{center 11:(7)}}
+{txt}{center:{hline 111}}
+{center:{txt}{lalign 65:\textbf{Panel A: Land dispute outomes for all residents}}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Any serious land dispute}{res}{center 7:0.867}{res}{center 26:0.900\textsuperscript{a}}{res}{center 11:0.867}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Any unresolved land dispute}{res}{center 7:0.015}{res}{center 26:0.000\textsuperscript{a}}{res}{center 11:0.057}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Any threats, property damage, or violence}{res}{center 7:0.397}{res}{center 26:0.400\textsuperscript{a}}{res}{center 11:0.781}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Property damage or violence in land dispute}{res}{center 7:0.183}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Threats}{res}{center 7:0.596}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Property damage}{res}{center 7:0.029}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Violence}{res}{center 7:0.416}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\textbf{Panel B: Conditional on a land dispute}}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Length of maximum land conflict}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Resolved land dispute}{res}{center 7:0.009}{res}{center 26:0.000\textsuperscript{a}}{res}{center 11:0.045}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Any threats, property damage, or violence \phantom{}}{res}{center 7:0.496}{res}{center 26:0.600\textsuperscript{a}}{res}{center 11:0.781}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Property damage or violence \tab}{res}{center 7:0.213}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Threats \phantom{}}{res}{center 7:0.713}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Property damage \phantom{}}{res}{center 7:0.041}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Violence \phantom{}}{res}{center 7:0.442}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Witchcraft \phantom{}}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\textbf{Panel C: General dispute outcomes for all residents}}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Any serious dispute}{res}{center 7:0.220}{res}{center 26:0.500\textsuperscript{c}}{res}{center 11:0.525}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Any unresolved dispute}{res}{center 7:0.250}{res}{center 26:0.500\textsuperscript{c}}{res}{center 11:0.525}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\phantom{} Any threats, property damage, or violence}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\textbf{Panel D: Conditional on a dispute}}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Resolved dispute}{res}{center 7:0.033}{res}{center 26:0.200\textsuperscript{c}}{res}{center 11:0.125}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Resolved via informal mechanism}{res}{center 7:0.470}{res}{center 26:0.500\textsuperscript{c}}{res}{center 11:0.525}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\phantom{} Any threats, property damage, or violence \phantom{}}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Property damage or violence \phantom{}}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Threats \phantom{}}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Property damage \phantom{}}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Violence \phantom{}}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{txt}{center:{hline 111}}
+
+
+{txt}{center:{hline 130}}
+{center:{txt}{lalign 65:}{txt}{center 33:\uline{\hfill Endline 2 \hfill}}{txt}{center 7:}{txt}{center 12:}{txt}{center 11:}}
+{center:{txt}{lalign 65:}{txt}{center 33:}{txt}{center 7:ITT /}{txt}{center 12:}{txt}{center 11:}}
+{center:{txt}{lalign 65:}{txt}{center 33:Control}{txt}{center 7:}{txt}{center 12:}{txt}{center 11:control}}
+{center:{txt}{lalign 65:Dependent Variable}{txt}{center 33:mean}{txt}{center 7:N}{txt}{center 12:ITT}{txt}{center 11:mean (\%)}}
+{center:{txt}{lalign 65:}{txt}{center 33:(8)}{txt}{center 7:(9)}{txt}{center 12:(10)}{txt}{center 11:(11)}}
+{txt}{center:{hline 130}}
+{center:{txt}{lalign 65:\textbf{Panel A: Land dispute outomes for all residents}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:Any serious land dispute}{res}{center 33:0.087}{res}{center 7:4,011}{res}{center 12:0.008}{res}{center 11:8.8}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.011]}{res}{center 11:}}
+{center:{txt}{lalign 65:Any unresolved land dispute}{res}{center 33:0.024}{res}{center 7:4,011}{res}{center 12:0.002}{res}{center 11:6.4}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.005]}{res}{center 11:}}
+{center:{txt}{lalign 65:Any threats, property damage, or violence}{res}{center 33:0.041}{res}{center 7:4,011}{res}{center 12:-0.012}{res}{center 11:-29.3}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.006]**}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Property damage or violence in land dispute}{res}{center 33:0.021}{res}{center 7:4,011}{res}{center 12:-0.007}{res}{center 11:-31.2}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.004]}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Threats}{res}{center 33:0.035}{res}{center 7:4,011}{res}{center 12:-0.010}{res}{center 11:-28.9}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.006]*}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Property damage}{res}{center 33:0.010}{res}{center 7:4,011}{res}{center 12:-0.005}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.003]*}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Violence}{res}{center 33:0.017}{res}{center 7:4,011}{res}{center 12:-0.004}{res}{center 11:-21.4}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.004]}{res}{center 11:}}
+{center:{txt}{lalign 65:\textbf{Panel B: Conditional on a land dispute}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:Length of maximum land conflict}{res}{center 33:13.247}{res}{center 7:353}{res}{center 12:3.642}{res}{center 11:27.5}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[2.889]}{res}{center 11:}}
+{center:{txt}{lalign 65:Resolved land dispute}{res}{center 33:0.668}{res}{center 7:353}{res}{center 12:-0.024}{res}{center 11:-3.6}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.046]}{res}{center 11:}}
+{center:{txt}{lalign 65:Any threats, property damage, or violence \phantom{}}{res}{center 33:0.476}{res}{center 7:353}{res}{center 12:-0.192}{res}{center 11:-40.4}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.047]***}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Property damage or violence \tab}{res}{center 33:0.243}{res}{center 7:353}{res}{center 12:-0.090}{res}{center 11:-37.2}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.042]**}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Threats \phantom{}}{res}{center 33:0.408}{res}{center 7:353}{res}{center 12:-0.157}{res}{center 11:-38.6}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.048]***}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Property damage \phantom{}}{res}{center 33:0.114}{res}{center 7:353}{res}{center 12:-0.067}{res}{center 11:-58.5}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.027]**}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Violence \phantom{}}{res}{center 33:0.202}{res}{center 7:353}{res}{center 12:-0.056}{res}{center 11:-28.0}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.042]}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Witchcraft \phantom{}}{res}{center 33:0.065}{res}{center 7:353}{res}{center 12:0.035}{res}{center 11:54.3}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.026]}{res}{center 11:}}
+{center:{txt}{lalign 65:\textbf{Panel C: General dispute outcomes for all residents}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:Any serious dispute}{res}{center 33:0.306}{res}{center 7:4,011}{res}{center 12:0.012}{res}{center 11:4.1}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.017]}{res}{center 11:}}
+{center:{txt}{lalign 65:Any unresolved dispute}{res}{center 33:0.064}{res}{center 7:4,011}{res}{center 12:-0.004}{res}{center 11:-6.6}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.009]}{res}{center 11:}}
+{center:{txt}{lalign 65:\phantom{} Any threats, property damage, or violence}{res}{center 33:0.101}{res}{center 7:4,011}{res}{center 12:-0.015}{res}{center 11:-15.2}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.010]}{res}{center 11:}}
+{center:{txt}{lalign 65:\textbf{Panel D: Conditional on a dispute}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}}
+{center:{txt}{lalign 65:Resolved dispute}{res}{center 33:0.767}{res}{center 7:1,227}{res}{center 12:-0.019}{res}{center 11:-2.5}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.026]}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Resolved via informal mechanism}{res}{center 33:0.409}{res}{center 7:1,227}{res}{center 12:-0.019}{res}{center 11:-4.6}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.027]}{res}{center 11:}}
+{center:{txt}{lalign 65:\phantom{} Any threats, property damage, or violence \phantom{}}{res}{center 33:0.331}{res}{center 7:1,227}{res}{center 12:-0.069}{res}{center 11:-20.7}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.026]***}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Property damage or violence \phantom{}}{res}{center 33:0.190}{res}{center 7:1,227}{res}{center 12:-0.027}{res}{center 11:-14.1}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.022]}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Threats \phantom{}}{res}{center 33:0.274}{res}{center 7:1,227}{res}{center 12:-0.072}{res}{center 11:-26.2}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.024]***}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Property damage \phantom{}}{res}{center 33:0.048}{res}{center 7:1,227}{res}{center 12:-0.019}{res}{center 11:-40.0}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.011]*}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Violence \phantom{}}{res}{center 33:0.173}{res}{center 7:1,227}{res}{center 12:-0.018}{res}{center 11:-10.2}}
+{center:{txt}{lalign 65:}{res}{center 33:}{res}{center 7:}{res}{center 12:[0.021]}{res}{center 11:}}
+{txt}{center:{hline 130}}
+
+
+{txt}{center:{hline 111}}
+{center:{txt}{lalign 65:}{txt}{center 7:}{txt}{center 26:}{txt}{center 11:}}
+{center:{txt}{lalign 65:}{txt}{center 7:}{txt}{center 26:}{txt}{center 11:}}
+{center:{txt}{lalign 65:}{txt}{center 7:Est.}{txt}{center 26:WY Adj.}{txt}{center 11:Holms Adj}}
+{center:{txt}{lalign 65:Dependent Variable}{txt}{center 7:p-val}{txt}{center 26:p-val}{txt}{center 11:p-val}}
+{center:{txt}{lalign 65:}{txt}{center 7:(12)}{txt}{center 26:(13)}{txt}{center 11:(14)}}
+{txt}{center:{hline 111}}
+{center:{txt}{lalign 65:\textbf{Panel A: Land dispute outomes for all residents}}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Any serious land dispute}{res}{center 7:0.473}{res}{center 26:0.700\textsuperscript{b}}{res}{center 11:0.722}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Any unresolved land dispute}{res}{center 7:0.744}{res}{center 26:0.800\textsuperscript{b}}{res}{center 11:0.744}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Any threats, property damage, or violence}{res}{center 7:0.039}{res}{center 26:0.000\textsuperscript{b}}{res}{center 11:0.113}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Property damage or violence in land dispute}{res}{center 7:0.117}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Threats}{res}{center 7:0.069}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Property damage}{res}{center 7:0.072}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Violence}{res}{center 7:0.361}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\textbf{Panel B: Conditional on a land dispute}}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Length of maximum land conflict}{res}{center 7:0.209}{res}{center 26:0.500\textsuperscript{d}}{res}{center 11:0.374}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Resolved land dispute}{res}{center 7:0.604}{res}{center 26:0.700\textsuperscript{d}}{res}{center 11:0.603}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Any threats, property damage, or violence \phantom{}}{res}{center 7:0.000}{res}{center 26:0.000\textsuperscript{d}}{res}{center 11:0.000}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Property damage or violence \tab}{res}{center 7:0.035}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Threats \phantom{}}{res}{center 7:0.001}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Property damage \phantom{}}{res}{center 7:0.016}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Violence \phantom{}}{res}{center 7:0.186}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\tab Witchcraft \phantom{}}{res}{center 7:0.182}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\textbf{Panel C: General dispute outcomes for all residents}}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Any serious dispute}{res}{center 7:0.456}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Any unresolved dispute}{res}{center 7:0.623}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\phantom{} Any threats, property damage, or violence}{res}{center 7:0.111}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\textbf{Panel D: Conditional on a dispute}}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:Resolved dispute}{res}{center 7:0.467}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Resolved via informal mechanism}{res}{center 7:0.487}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\phantom{} Any threats, property damage, or violence \phantom{}}{res}{center 7:0.009}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Property damage or violence \phantom{}}{res}{center 7:0.222}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Threats \phantom{}}{res}{center 7:0.003}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Property damage \phantom{}}{res}{center 7:0.085}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:\quad Violence \phantom{}}{res}{center 7:0.411}{res}{center 26:}{res}{center 11:}}
+{center:{txt}{lalign 65:}{res}{center 7:}{res}{center 26:}{res}{center 11:}}
+{txt}{center:{hline 111}}
+
+
+{com}. 
+. asdf
+{err}command {bf}asdf{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+end of do-file
+
+{search r(199), local:r(199);}
+
 {com}. 
