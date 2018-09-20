@@ -1,0 +1,331 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[a4paper, margin = .5in]{geometry}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{pdflscape}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{grffile}
+\usepackage{adjustbox}
+
+\usepackage{mathpazo}
+
+\usepackage[document]{ragged2e}
+\usepackage[normalem]{ulem}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor= blue,
+    filecolor= black,
+    linkcolor= black,
+    urlcolor= black
+}
+
+\newcommand{\tab}{\quad}
+
+
+
+\title{Results for PEACE Follow Up}
+\date{\today}
+
+\begin{document}
+\maketitle 
+\tableofcontents
+\listoftables
+\newpage
+\clearpage
+
+
+\section{Paper Tables}
+\begin{table}[H]
+\caption{ Program impacts on number, length, severity, and resolution of land disputes}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/land_conflict_paper_edited_year}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{Program impacts on number, length, severity, and resolution of all dispute types}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/all_conflict_paper_edited_year}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{Effect on land security and investment 3-year endline}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/fallow_security_paper}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{Heterogeneity in land security and investment, 3-year endline}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/hetero_political}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{Effect on norms, attitudes and skills, 3-year endline}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/all_categories_ec2}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{Effect on community-level disputes}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/comm_conflict_year}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{Estimated aggregate effects of the program on violent disputes among the 30,000 households in treatment communities}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/aggregate_analysis_ate}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\section{Appendix Tables}
+\clearpage
+\setcounter{table}{0}   
+\renewcommand{\thetable}{A.\arabic{table}}
+
+\begin{table}[H]
+\caption{2008 baseline summary statistics and test of randomization balance}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+
+\begin{table}[H]
+\caption{Effects of intense treatment}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/intensive}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\begin{landscape}
+\begin{table}[H]
+\caption{Heterogeneity by demographics and peace background on conflict}
+\begin{center}
+\begin{adjustbox}{max width = 1.5\textheight}
+\input{../tables/hetero_demo_conflict}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{Heterogeneity by demographics and peace background on security and investment}
+\begin{center}
+\begin{adjustbox}{max width = 1.5\textheight}
+\input{../tables/hetero_demo}
+\end{adjustbox}
+\end{center}
+\end{table}
+\end{landscape}
+
+
+\begin{table}[H]
+\caption{Questions on Attitudes, Norms and Skills}
+\begin{center}
+\begin{adjustbox}{max width = 1.5\textheight}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\section{Extra Tables}
+\clearpage
+\setcounter{table}{0}   
+\renewcommand{\thetable}{E.\arabic{table}}
+
+\subsection{All conflict and security variables}
+
+\begin{table}[H]
+\caption{Additional p-value corrections, general and land conflict combined}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/conflict_adj_p_year}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+% \begin{table}[H]
+% \caption{All land conflict results, endlines 1 and 2}
+% \begin{center}
+% \begin{adjustbox}{max width = \textwidth}
+% \input{../tables/land_conflict_year}
+% \end{adjustbox}
+% \end{center}
+% \end{table}
+% 
+% \begin{table}[H]
+% \caption{All general conflict results, endlines 1 and 2}
+% \begin{center}
+% \begin{adjustbox}{max width = \textwidth}
+% \input{../tables/all_conflict_year}
+% \end{adjustbox}
+% \end{center}
+% \end{table}
+
+\begin{table}[H]
+\caption{All land and security results}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/fallow_security}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+
+
+\subsection{Subcomponents of Norms and Skills}
+
+\begin{table}[H]
+\caption{Resident-Level Effect of Treatment Assignment Bias}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/bias_index_ec2}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{Resident-Level Effect of Treatment Assignment on Defection}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/defection_index_ec2}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{Resident-Level Effect of Treatment Assignment on Forum Choice}
+\begin{center}
+\input{../tables/forum_choice_index_ec2}
+\end{center}
+\end{table}
+
+
+\begin{table}[H]
+\caption{Resident-Level Effect of Treatment Assignment on Managing Emotions}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/managing_emotions_index_ec2}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{Resident-Level Effect of Treatment Assignment on Mediation}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/mediation_index_ec2}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{Resident-Level Effect of Treatment Assignment on Negotiation}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/negotiation_index_ec2}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\subsection{Using years-of-treatment as treatment variable}
+
+\begin{landscape}
+\begin{table}[H]
+\caption{Resident-Level Effect of years since Treatment on Land Conflicts}
+\begin{center}
+\begin{adjustbox}{max height = .6\textheight}
+\input{../tables/land_conflict_years_treated}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{Resident-Level Effect of years since Treatment on Land Conflicts: IV}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/land_conflict_years_treated_iv}
+\end{adjustbox}
+\end{center}
+\end{table}
+\end{landscape}
+
+
+\clearpage
+
+\subsection{Community-Level Impacts}
+
+\begin{table}[H]
+\caption{Community-Level Effect of Treatment Assignment on Conflicts}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/comm_conflict_year}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+
+\clearpage
+\subsection{Plot-Level Impacts}
+
+
+\begin{table}[H]
+\caption{Plot-Level Effect of Treatment Assignment on Investments}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/invest}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+
+\begin{table}[H]
+\caption{Plot-Level Effect of Treatment Assignment on Security}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/secure}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{Plot-Level Effect of Treatment Assignment on Main Outcomes}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/main_plot}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+
+\end{document}

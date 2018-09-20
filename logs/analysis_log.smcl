@@ -1,0 +1,220 @@
+{smcl}
+{com}{sf}{ul off}. do do/analysis
+{txt}
+{com}. ********************************************************************************
+. * Set the directory for the frmttable ado file *********************************
+. ********************************************************************************
+. qui adopath ++ ./ado
+{txt}
+{com}. 
+. ********************************************************************************
+. * Import the analysis dataset **************************************************
+. ********************************************************************************
+. use data/ready_analysis, clear
+{txt}
+{com}. 
+. ********************************************************************************
+. * Set globals for analysis *****************************************************
+. ********************************************************************************
+. * Set the control variables
+. qui do do/set_controls 
+{txt}
+{com}. * Set the outcome variables 
+. qui do do/set_outcomes
+{txt}
+{com}. 
+. ********************************************************************************
+. * Initialize the ATE maker program *********************************************
+. ********************************************************************************
+. qui do do/tables_do/ate_maker
+{txt}
+{com}. qui do do/tables_do/adjust_p_values
+{txt}
+{com}. qui do do/tables_do/ate_maker_year
+{txt}
+{com}. set more off
+{txt}
+{com}. 
+. * Also initialize the summary table program ************************************
+. qui do do/tables_do/summary_table
+{txt}
+{com}. 
+. ********************************************************************************
+. * Make summary statistics of all covariates ************************************
+. ********************************************************************************
+. qui summary_table $C_ec2, filename(covariates_resident) subset($L1)
+{txt}
+{com}. 
+. 
+. ********************************************************************************
+. * Comparison between ATEs in Endline 1 and Endline 2 ***************************
+. ********************************************************************************
+. ate_maker_year $land_conflict_paper, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(land_conflict_paper) ///
+>     adjustvarsg1(   ///
+>         anylndconf_u_ec2   ///  
+>         unrslv_lnd_conf_u_ec2 ///
+>         conf_any_u_ec2) ///
+>     adjustvarsg2(   ///
+>         anylndconf_u_ec2   ///  
+>         unrslv_lnd_conf_u_ec2 ///
+>         conf_any_u_ec2) ///
+>     extraadjustvarsg1( ///
+>         forum_lastsuc_c_ec2 ///
+>         conf_any_c_ec2 ///
+>         conf_threat_c_ec2 ///
+>         conf_damage_c_ec2 ///
+>         conf_viol_c_ec2) ///
+>     extraadjustvarsg2( ///
+>         conf_length_max_c_ec2 ///
+>         forum_lastsuc_c_ec2 ///
+>         conf_any_c_ec2 ///
+>         conf_threat_c_ec2 ///
+>         conf_damage_c_ec2 ///
+>         conf_viol_c_ec2) ///
+>     nsims(100)
+Running 100 simulations (twice, for two year estimates)
+{res}{txt}(label district already defined)
+
+{col 5}Result{col 38}# of obs.
+{col 5}{hline 41}
+{col 5}not matched{col 30}{res}           1,989
+{txt}{col 9}from master{col 30}{res}           1,989{txt}  (_merge==1)
+{col 9}from using{col 30}{res}               0{txt}  (_merge==2)
+
+{col 5}matched{col 30}{res}          14,148{txt}  (_merge==3)
+{col 5}{hline 41}
+Finished running 100 simulations after 357 minutes
+anylndconf_u_ec2 .8671409761743001
+unrslv_lnd_conf_u_ec2 .0145504219020015
+conf_any_u_ec2 .3969348946260437
+1
+2
+3
+{res}anylndconf_u_ec2 .473249505784808
+unrslv_lnd_conf_u_ec2 .7441857532744862
+conf_any_u_ec2 .0393812560525499
+1
+2
+3
+forum_lastsuc_c_ec2 .0092576573166824
+conf_any_c_ec2 .4958147969243766
+conf_threat_c_ec2 .7125847061476986
+conf_damage_c_ec2 .0408971072239782
+conf_viol_c_ec2 .4419519140317029
+4
+5
+6
+7
+8
+conf_length_max_c_ec2 .2094588729755556
+forum_lastsuc_c_ec2 .6035404187729022
+conf_any_c_ec2 .0000676563585526
+conf_threat_c_ec2 .0012732828259198
+conf_damage_c_ec2 .0161735792481097
+conf_viol_c_ec2 .1863090937884483
+4
+5
+6
+7
+8
+9
+{txt}warning: matrix in ctitles option has varying size rows:
+   "", "\uline{\hfill Endline 1 \hfill}", "", "", "", "", "", "\uline{\hfill Endline 2 \hfill}", "", "", "", "", "" \ "", "", "", "", "ITT /", "", "", "", "", "", "ITT /", "", "", \ "", "Control", "", "", "control", "Est.", "Adj.", "Control", "", "", "control", "Est.", "Adj.", \ "Dependent Variable", "mean", "N", "ITT", "mean (\%)", "p-val", "p-val", "mean", "N", "ITT", "mean (\%)", "p-val", "p-val", \ "", "(1)", "(2)", "(3)", "(4)", "(5)", "(6)", "(7)", "(8)", "(9)", "(10)", "(11)", "(12)"
+{res}
+{txt}{center:{hline 133}}
+{center:{txt}{lalign 54:}{txt}{center 33:\uline{\hfill Endline 1 \hfill}}{txt}{center 7:}{txt}{center 12:}{txt}{center 11:}{txt}{center 7:}{txt}{center 7:}}
+{center:{txt}{lalign 54:}{txt}{center 33:}{txt}{center 7:}{txt}{center 12:}{txt}{center 11:ITT /}{txt}{center 7:}{txt}{center 7:}}
+{center:{txt}{lalign 54:}{txt}{center 33:Control}{txt}{center 7:}{txt}{center 12:}{txt}{center 11:control}{txt}{center 7:Est.}{txt}{center 7:Adj.}}
+{center:{txt}{lalign 54:Dependent Variable}{txt}{center 33:mean}{txt}{center 7:N}{txt}{center 12:ITT}{txt}{center 11:mean (\%)}{txt}{center 7:p-val}{txt}{center 7:p-val}}
+{center:{txt}{lalign 54:}{txt}{center 33:(1)}{txt}{center 7:(2)}{txt}{center 12:(3)}{txt}{center 11:(4)}{txt}{center 7:(5)}{txt}{center 7:(6)}}
+{txt}{center:{hline 133}}
+{center:{txt}{lalign 54:\textbf{Panel A: Ouctomes for all residents}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:Any serious land dispute}{res}{center 33:0.221}{res}{center 7:5,435}{res}{center 12:0.003}{res}{center 11:1.2}{res}{center 7:0.867}{res}{center 7:1.000}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.016)}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:Any unresolved land dispute}{res}{center 33:0.070}{res}{center 7:5,435}{res}{center 12:-0.020}{res}{center 11:-28.0}{res}{center 7:0.015}{res}{center 7:0.110}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.008)**}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:Any threats, property damage, or violence}{res}{center 33:0.122}{res}{center 7:5,435}{res}{center 12:-0.010}{res}{center 11:-8.1}{res}{center 7:0.397}{res}{center 7:0.750}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.012)}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\quad Property damage or violence in land dispute}{res}{center 33:0.091}{res}{center 7:5,435}{res}{center 12:-0.012}{res}{center 11:-13.2}{res}{center 7:0.183}{res}{center 7:}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.009)}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\tab Threats}{res}{center 33:0.114}{res}{center 7:5,435}{res}{center 12:-0.006}{res}{center 11:-5.3}{res}{center 7:0.596}{res}{center 7:}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.011)}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\tab Property damage}{res}{center 33:0.041}{res}{center 7:5,435}{res}{center 12:-0.013}{res}{center 11:-32.4}{res}{center 7:0.029}{res}{center 7:}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.006)**}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\tab Violence}{res}{center 33:0.077}{res}{center 7:5,435}{res}{center 12:-0.007}{res}{center 11:-8.7}{res}{center 7:0.416}{res}{center 7:}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.008)}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\textbf{Panel B: Conditional on a land dispute}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:Length of maximum land conflict}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:Resolved land dispute}{res}{center 33:0.684}{res}{center 7:1,212}{res}{center 12:0.072}{res}{center 11:10.5}{res}{center 7:0.009}{res}{center 7:0.110}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.027)***}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:Any threats, property damage, or violence \phantom{}}{res}{center 33:0.554}{res}{center 7:1,212}{res}{center 12:-0.024}{res}{center 11:-4.3}{res}{center 7:0.496}{res}{center 7:0.970}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.035)}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\quad Property damage or violence \tab}{res}{center 33:0.411}{res}{center 7:1,212}{res}{center 12:-0.037}{res}{center 11:-9.1}{res}{center 7:0.213}{res}{center 7:}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.030)}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\tab Threats \phantom{}}{res}{center 33:0.515}{res}{center 7:1,212}{res}{center 12:-0.013}{res}{center 11:-2.5}{res}{center 7:0.713}{res}{center 7:1.000}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.035)}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\tab Property damage \phantom{}}{res}{center 33:0.186}{res}{center 7:1,212}{res}{center 12:-0.051}{res}{center 11:-27.4}{res}{center 7:0.041}{res}{center 7:0.280}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.025)**}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\tab Violence \phantom{}}{res}{center 33:0.349}{res}{center 7:1,212}{res}{center 12:-0.022}{res}{center 11:-6.3}{res}{center 7:0.442}{res}{center 7:0.940}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.028)}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\tab Witchcraft \phantom{}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{txt}{center:{hline 133}}
+
+
+{txt}{center:{hline 133}}
+{center:{txt}{lalign 54:}{txt}{center 33:\uline{\hfill Endline 2 \hfill}}{txt}{center 7:}{txt}{center 12:}{txt}{center 11:}{txt}{center 7:}{txt}{center 7:}}
+{center:{txt}{lalign 54:}{txt}{center 33:}{txt}{center 7:}{txt}{center 12:}{txt}{center 11:ITT /}{txt}{center 7:}{txt}{center 7:}}
+{center:{txt}{lalign 54:}{txt}{center 33:Control}{txt}{center 7:}{txt}{center 12:}{txt}{center 11:control}{txt}{center 7:Est.}{txt}{center 7:Adj.}}
+{center:{txt}{lalign 54:Dependent Variable}{txt}{center 33:mean}{txt}{center 7:N}{txt}{center 12:ITT}{txt}{center 11:mean (\%)}{txt}{center 7:p-val}{txt}{center 7:p-val}}
+{center:{txt}{lalign 54:}{txt}{center 33:(7)}{txt}{center 7:(8)}{txt}{center 12:(9)}{txt}{center 11:(10)}{txt}{center 7:(11)}{txt}{center 7:(12)}}
+{txt}{center:{hline 133}}
+{center:{txt}{lalign 54:\textbf{Panel A: Ouctomes for all residents}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:Any serious land dispute}{res}{center 33:0.087}{res}{center 7:4,011}{res}{center 12:0.008}{res}{center 11:8.8}{res}{center 7:0.473}{res}{center 7:0.870}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.011)}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:Any unresolved land dispute}{res}{center 33:0.024}{res}{center 7:4,011}{res}{center 12:0.002}{res}{center 11:6.4}{res}{center 7:0.744}{res}{center 7:0.970}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.005)}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:Any threats, property damage, or violence}{res}{center 33:0.041}{res}{center 7:4,011}{res}{center 12:-0.012}{res}{center 11:-29.3}{res}{center 7:0.039}{res}{center 7:0.190}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.006)**}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\quad Property damage or violence in land dispute}{res}{center 33:0.021}{res}{center 7:4,011}{res}{center 12:-0.007}{res}{center 11:-31.2}{res}{center 7:0.117}{res}{center 7:}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.004)}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\tab Threats}{res}{center 33:0.035}{res}{center 7:4,011}{res}{center 12:-0.010}{res}{center 11:-28.9}{res}{center 7:0.069}{res}{center 7:}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.006)*}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\tab Property damage}{res}{center 33:0.010}{res}{center 7:4,011}{res}{center 12:-0.005}{res}{center 11:}{res}{center 7:0.072}{res}{center 7:}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.003)*}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\tab Violence}{res}{center 33:0.017}{res}{center 7:4,011}{res}{center 12:-0.004}{res}{center 11:-21.4}{res}{center 7:0.361}{res}{center 7:}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.004)}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\textbf{Panel B: Conditional on a land dispute}}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:Length of maximum land conflict}{res}{center 33:13.247}{res}{center 7:353}{res}{center 12:3.642}{res}{center 11:27.5}{res}{center 7:0.209}{res}{center 7:0.070}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(2.889)}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:Resolved land dispute}{res}{center 33:0.668}{res}{center 7:353}{res}{center 12:-0.024}{res}{center 11:-3.6}{res}{center 7:0.604}{res}{center 7:0.680}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.046)}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:Any threats, property damage, or violence \phantom{}}{res}{center 33:0.476}{res}{center 7:353}{res}{center 12:-0.192}{res}{center 11:-40.4}{res}{center 7:0.000}{res}{center 7:0.000}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.047)***}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\quad Property damage or violence \tab}{res}{center 33:0.243}{res}{center 7:353}{res}{center 12:-0.090}{res}{center 11:-37.2}{res}{center 7:0.035}{res}{center 7:}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.042)**}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\tab Threats \phantom{}}{res}{center 33:0.408}{res}{center 7:353}{res}{center 12:-0.157}{res}{center 11:-38.6}{res}{center 7:0.001}{res}{center 7:0.000}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.048)***}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\tab Property damage \phantom{}}{res}{center 33:0.114}{res}{center 7:353}{res}{center 12:-0.067}{res}{center 11:-58.5}{res}{center 7:0.016}{res}{center 7:0.000}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.027)**}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\tab Violence \phantom{}}{res}{center 33:0.202}{res}{center 7:353}{res}{center 12:-0.056}{res}{center 11:-28.0}{res}{center 7:0.186}{res}{center 7:0.070}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.042)}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{center:{txt}{lalign 54:\tab Witchcraft \phantom{}}{res}{center 33:0.065}{res}{center 7:353}{res}{center 12:0.035}{res}{center 11:54.3}{res}{center 7:0.182}{res}{center 7:}}
+{center:{txt}{lalign 54:}{res}{center 33:}{res}{center 7:}{res}{center 12:(0.026)}{res}{center 11:}{res}{center 7:}{res}{center 7:}}
+{txt}{center:{hline 133}}
+
+
+{com}. asdf
+{err}command {bf}asdf{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+end of do-file
+
+{search r(199), local:r(199);}
+
+{com}. exit, clear
