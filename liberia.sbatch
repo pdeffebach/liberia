@@ -6,4 +6,4 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --output=liberia.out
 module load stata/15
-stata-mp  do master.do
+stata-mp  do do/analysis.do
