@@ -33,10 +33,11 @@ qui do do/tables_do/summary_table
 qui summary_table $C_ec2, filename(covariates_resident) subset($L1)
 
 
-local nsims = 1000
+local nsims = 2
 ********************************************************************************
 * Comparison between ATEs in Endline 1 and Endline 2 ***************************
 ********************************************************************************
+/*
  ate_maker_year  $land_conflict_paper, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(land_conflict_paper) ///
      adjustvarsg1(   ///
          anylndconf_u_ec2   ///  
@@ -82,24 +83,30 @@ ate_maker_year $land_conflict, treat(assigned_ever) group1(resident_e1) group2(E
          anylndconf_u_ec2   ///  
          unrslv_lnd_conf_u_ec2 ///
          conf_any_u_ec2 /// 
-         forum_lastsuc_c_ec2 ///
-         conf_any_c_ec2 ) ///
+         lmg_conf_u_ec2 ///
+         lmg_unrslv_conf_u_ec2) ///
      adjustvarsg2( ///
-         anylndconf_u_ec2   ///  
-         unrslv_lnd_conf_u_ec2 ///
-         conf_any_u_ec2) ///
-    extraadjustvarsg1( ///
-        lmg_conf_u_ec2 ///
-        lmg_unrslv_conf_u_ec2 ///
-        lmg_forum_lastsuc_c_ec2 ///
-        lmg_forum_inf_suc_c_ec2) ///
+	 anylndconf_u_ec2 ///
+	 unrslv_lnd_conf_u_ec2 ///
+	 conf_any_u_ec2 ///
+	 lmg_conf_u_ec2 ///
+	 lmg_unrslv_conf_u_ec2 ///
+	 lmg_conf_any_u_ec2) ///    
+extraadjustvarsg1( ///
+         forum_lastsuc_c_ec2   ///  
+         conf_any_c_ec2 ///
+         lmg_forum_lastsuc_c_ec2 ///
+         lmg_forum_inf_suc_c_ec2) ///
     extraadjustvarsg2( ///
         conf_length_max_c_ec2 ///
          forum_lastsuc_c_ec2 ///
-         conf_any_c_ec2) /// 
+         conf_any_c_ec2 /// 
+         lmg_forum_lastsuc_c_ec2 ///
+         lmg_forum_inf_suc_c_ec2 ///
+         lmg_conf_any_c_ec2) ///
      nsims(`nsims')
 
-
+asdf
 ********************************************************************************
 * Resident-level analysis ******************************************************
 ********************************************************************************
