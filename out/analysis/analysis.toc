@@ -2,7 +2,7 @@
 \contentsline {section}{\numberline {2}Appendix Tables}{4}{section.2}
 \contentsline {section}{\numberline {3}Extra Tables}{7}{section.3}
 \contentsline {subsection}{\numberline {3.1}All conflict and security variables}{8}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Subcomponents of Norms and Skills}{12}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Using years-of-treatment as treatment variable}{15}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}Community-Level Impacts}{18}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Plot-Level Impacts}{19}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.2}Subcomponents of Norms and Skills}{13}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Using years-of-treatment as treatment variable}{16}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Community-Level Impacts}{19}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Plot-Level Impacts}{20}{subsection.3.5}

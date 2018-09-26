@@ -213,7 +213,7 @@ if "`extraadjustvarsg1'" != "" {
 
 	frmttable using out/tables/`filename'_year, ///
 	ctitle("", "\uline{\hfill Endline 1 \hfill}", "", "", "", "", "", "", "\uline{\hfill Endline 2 \hfill}", "", "", "", "", ""  \ ///
-	"", "", "", "", "ITT /", , "", "", "", "", "ITT /", "", "", "", "" \ ///
+	"", "", "", "", "ITT /", , "", "", "", "",, "", "", "ITT /", "", "",  \ ///
 	"", "Control", "", "", "control", "Est.", "WY Adj.", "Holms Adj" "Control", "", "", "control", "Est.", "WY Adj.", "Holms Adj"  \ ///
 	"Dependent Variable", "mean", "N", "ITT", "mean (\%)", "p-val", "p-val", "p-val", "mean", "N", "ITT", "mean (\%)", "p-val", "p-val", "p-val" \ ///
 	"", "(1)", "(2)", "(3)", "(4)", "(5)", "(6)", "(7)", "(8)", "(9)", "(10)", "(11)", "(12)", "(13)", "(14)") ///

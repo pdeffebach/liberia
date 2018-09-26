@@ -91,6 +91,9 @@ local nsims = 2
          anylndconf_u_ec2   ///  
          unrslv_lnd_conf_u_ec2 ///
          conf_any_u_ec2 ///
+         conf_threat_u_ec2 ///
+        conf_damage_u_ec2 ///
+        conf_viol_u_ec2 ///
          conf_length_max_c_ec2 ///
          forum_lastsuc_c_ec2   ///  
          conf_any_c_ec2 ///
