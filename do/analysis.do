@@ -33,7 +33,7 @@ qui do do/tables_do/summary_table
 qui summary_table $C_ec2, filename(covariates_resident) subset($L1)
 
 
-local nsims = 2
+local nsims = 1000
 ********************************************************************************
 * Comparison between ATEs in Endline 1 and Endline 2 ***************************
 ********************************************************************************
@@ -194,15 +194,9 @@ extraadjustvarsg1( ///
          anylndconf_u_ec2   ///  
          unrslv_lnd_conf_u_ec2 ///
          conf_any_u_ec2 ///
-	conf_threat_u_ec2 ///
-	conf_damage_u_ec2 ///
-	conf_viol_u_ec2 ///
          forum_lastsuc_c_ec2   ///  
          conf_any_c_ec2 ///
-	 conf_threat_c_ec2 ///
-	 conf_damage_c_ec2 ///
-	 conf_viol_c_ec2 ///       
-	lmg_conf_u_ec2 ///
+	 lmg_conf_u_ec2 ///
          lmg_unrslv_conf_u_ec2 ///
          lmg_forum_lastsuc_c_ec2 ///
          lmg_forum_inf_suc_c_ec2) ///
@@ -210,26 +204,15 @@ extraadjustvarsg1( ///
          anylndconf_u_ec2   ///  
          unrslv_lnd_conf_u_ec2 ///
          conf_any_u_ec2 ///
-         conf_threat_u_ec2 ///
-        conf_damage_u_ec2 ///
-        conf_viol_u_ec2 ///
          conf_length_max_c_ec2 ///
          forum_lastsuc_c_ec2   ///  
          conf_any_c_ec2 ///
-         conf_any_c_ec2 ///
-	 conf_threat_c_ec2 ///
-	 conf_damage_c_ec2 ///
-	 conf_viol_c_ec2 ///
-	 conf_witch_c_ec2 ///
-       lmg_conf_u_ec2 ///
+         lmg_conf_u_ec2 ///
          lmg_unrslv_conf_u_ec2 ///
          lmg_conf_any_u_ec2 ///
          lmg_forum_lastsuc_c_ec2 ///
          lmg_forum_inf_suc_c_ec2 ///
-         lmg_conf_any_c_ec2 ///
-         lmg_conf_threat_c_ec2 ///
-         lmg_conf_damage_c_ec2 ///
-         lmg_conf_viol_c_ec2) ///	
+         lmg_conf_any_c_ec2) ///
      nsims(`nsims')
 
 asdf
