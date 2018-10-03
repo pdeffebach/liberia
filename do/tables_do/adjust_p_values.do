@@ -5,8 +5,10 @@
 ********************************************************************************
 cap program drop adjust_p_values 
 program define adjust_p_values 
-syntax, adjustvars(varlist) adjustvarsmat(name) controls(varlist) treat(varlist) nsims(integer) strata(varlist)
+syntax, adjustvars(varlist) adjustvarsmat(name) controls(varlist) treat(varlist) nsims(integer) strata(varlist) group(varlist)
 local regressors `treat' `controls'  
+preserve 
+keep if `group' == 1
 wyoung `adjustvars', cmd(svy: regress OUTCOMEVAR `regressors')  cluster(commcode) familyp(`treat') bootstraps(`nsims') strata(`strata')  
 
 ********************************************************************************
@@ -20,6 +22,7 @@ foreach y in `adjustvars' {
     mat `adjustvarsmat'[`all_mat', 2] = table[`y_counter', 6]
     local ++y_counter
 }
+restore 
 end
 
 ***

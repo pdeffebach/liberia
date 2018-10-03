@@ -160,10 +160,10 @@ program define ate_maker_year
 if "`adjustvarsg1'" != "" {
 // group 1
 qui svyset [pweight=s_weight2], psu(commcode) strata(county)
-adjust_p_values, adjustvars(`adjustvarsg1') adjustvarsmat(adjusted_ps_g1) controls(`controls1') treat(`treat') nsims(`nsims') strata(district_bl)
+adjust_p_values, adjustvars(`adjustvarsg1') adjustvarsmat(adjusted_ps_g1) controls(`controls1') treat(`treat') nsims(`nsims') strata(district_bl) group(`group1')
 // group 2
 qui qui svyset commcode [pweight=weight_e1_e2], strata(county)
-adjust_p_values, adjustvars(`adjustvarsg2') adjustvarsmat(adjusted_ps_g2) controls(`controls2') treat(`treat') nsims(`nsims') strata(district_bl)
+adjust_p_values, adjustvars(`adjustvarsg2') adjustvarsmat(adjusted_ps_g2) controls(`controls2') treat(`treat') nsims(`nsims') strata(district_bl) group(`group2')
 
 foreach y in `adjustvarsg1' {
 	local t = rownumb(adjusted_ps_g1, "`y'")
@@ -178,10 +178,10 @@ foreach y in `adjustvarsg2' {
 if "`extraadjustvarsg1'" != "" {
 	// group 1
 	qui svyset [pweight=s_weight2], psu(commcode) strata(county)
-	adjust_p_values, adjustvars(`extraadjustvarsg1') adjustvarsmat(adjusted_ps_g1) controls(`controls1') treat(`treat') nsims(`nsims') strata(district_bl)
+	adjust_p_values, adjustvars(`extraadjustvarsg1') adjustvarsmat(adjusted_ps_g1) controls(`controls1') treat(`treat') nsims(`nsims') strata(district_bl) group(`group1')
 	// group 2
 	qui qui svyset commcode [pweight=weight_e1_e2], strata(county)
-	adjust_p_values, adjustvars(`extraadjustvarsg2') adjustvarsmat(adjusted_ps_g2) controls(`controls2') treat(`treat') nsims(`nsims') strata(district_bl)
+	adjust_p_values, adjustvars(`extraadjustvarsg2') adjustvarsmat(adjusted_ps_g2) controls(`controls2') treat(`treat') nsims(`nsims') strata(district_bl) group(`group2')
 	
 	foreach y in `extraadjustvarsg1' {
 		local t = rownumb(adjusted_ps_g1, "`y'")
