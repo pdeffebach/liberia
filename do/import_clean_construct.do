@@ -616,7 +616,10 @@ foreach y in female age40_60 age20_40 under30 cwealthindex_bc rltn_to_powerful m
 	gen treated_`y' = treated_ever * `y'
 	la var treated_`y' "`lab' * treated_ever" 
 }
-				
+
+* Make some dummies *************************************************************
+gen cgpeace_dum_bc = cgpeace_bc != 0
+label var cgpeace_dum_bc "Any peace group in town at baseline"
 			
 ********************************************************************************
 * Constructing new violence measures *******************************************
@@ -1598,8 +1601,21 @@ replace sumviol_el2      =	sumviol_el				if (ENDLINE_LEADER == 1)
 ********************************************************************************
 gen ctownhh_log_el=log(ctownhh_el)
 
+********************************************************************************
+* Figure out which communities were dropped between Endline 1 and Endline 2 ****
+********************************************************************************
+preserve 
+keep if ENDLINE2_RESIDENT == 1
+bysort commcode: keep if _n == 1
+gen was_not_dopped_ec2 = 1 
+keep commcode was_not_dopped_ec2
+tempfile endline2_communities
+save `endline2_communities'
+restore
 
-
+merge m:1 commcode using `endline2_communities' 
+replace was_not_dopped_ec2 = 0 if missing(was_not_dopped_ec2)
+gen was_dropped_ec2 = was_not_dopped_ec2 != 1
 
 
 

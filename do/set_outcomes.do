@@ -106,6 +106,30 @@ gl conflict_adj_p ///
             lmg_conf_damage_c_ec2 ///
             lmg_conf_viol_c_ec2 
 
+
+gl conflict_adj_p_e1 ///
+    g_unconditional_label_land ///
+    anylndconf_u_ec2   ///  
+    unrslv_lnd_conf_u_ec2 ///
+    conf_any_u_ec2 ///
+        conf_dam_violence_bin_u ///
+        conf_threat_u_ec2 ///
+        conf_damage_u_ec2 ///
+        conf_viol_u_ec2 ///
+    g_conditional_label_land ///
+    forum_lastsuc_c_ec2   ///
+    conf_any_c_ec2         ///
+        conf_dam_violence_bin_c ///
+        conf_threat_c_ec2 ///
+        conf_damage_c_ec2 ///
+        conf_viol_c_ec2 ///
+    g_unconditional_label_all ///
+    lmg_conf_u_ec2                  ///
+    lmg_unrslv_conf_u_ec2           ///
+    g_conditional_label_all ///
+    lmg_forum_lastsuc_c_ec2     ///
+        lmg_forum_inf_suc_c_ec2 ///
+
 global all_conflict ///
     unconditional_label_all ///
     lmg_conf_u_ec2                  ///
