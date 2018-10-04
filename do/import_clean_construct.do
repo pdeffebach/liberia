@@ -1608,16 +1608,15 @@ preserve
 keep if ENDLINE2_RESIDENT == 1
 bysort commcode: keep if _n == 1
 gen was_not_dopped_ec2 = 1 
-keep commcode was_not_dopped_ec2
-tempfile endline2_communities
+rename weight_ec2 dropping_weight_ec2
+keep commcode was_not_dopped_ec2 dropping_weight_ec2
+tempfile endline2_communities 
 save `endline2_communities'
 restore
 
 merge m:1 commcode using `endline2_communities' 
 replace was_not_dopped_ec2 = 0 if missing(was_not_dopped_ec2)
 gen was_dropped_ec2 = was_not_dopped_ec2 != 1
-
-
 
 
 gen weight_e1_e2 = weight_ec2

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6745 64-bit) (preloaded format=pdflatex 2018.7.22)  3 OCT 2018 16:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6745 64-bit) (preloaded format=pdflatex 2018.7.22)  4 OCT 2018 15:16
 entering extended mode
 **C:/Users/Pdeffebach/Documents/liberia/out/analysis/analysis.tex
 (C:/Users/Pdeffebach/Documents/liberia/out/analysis/analysis.tex
@@ -343,61 +343,18 @@ zo.sty"
 Package: mathpazo 2005/04/12 PSNFSS-v9.2a Palatino w/ Pazo Math (D.Puga, WaS) 
 \symupright=\mathgroup6
 )
-("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ms\ragged2e.s
-ty"
-Package: ragged2e 2009/05/21 v2.1 ragged2e Package (MS)
-
-
-LaTeX Warning: Command \@arrayparboxrestore  has changed.
-               Check if current package is valid.
-
-
-("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ms\everysel.s
-ty"
-Package: everysel 2011/10/28 v1.2 EverySelectfont Package (MS)
-)
-("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\footmisc\foot
-misc.sty"
-Package: footmisc 2011/06/06 v5.5b a miscellany of footnote facilities
-\FN@temptoken=\toks33
-\footnotemargin=\dimen149
-\c@pp@next@reset=\count111
-Package footmisc Info: Declaring symbol style bringhurst on input line 855.
-Package footmisc Info: Declaring symbol style chicago on input line 863.
-Package footmisc Info: Declaring symbol style wiley on input line 872.
-Package footmisc Info: Declaring symbol style lamport-robust on input line 883.
-
-Package footmisc Info: Declaring symbol style lamport* on input line 903.
-Package footmisc Info: Declaring symbol style lamport*-robust on input line 924
-.
-)
-\CenteringLeftskip=\skip49
-\RaggedLeftLeftskip=\skip50
-\RaggedRightLeftskip=\skip51
-\CenteringRightskip=\skip52
-\RaggedLeftRightskip=\skip53
-\RaggedRightRightskip=\skip54
-\CenteringParfillskip=\skip55
-\RaggedLeftParfillskip=\skip56
-\RaggedRightParfillskip=\skip57
-\JustifyingParfillskip=\skip58
-\CenteringParindent=\skip59
-\RaggedLeftParindent=\skip60
-\RaggedRightParindent=\skip61
-\JustifyingParindent=\skip62
-)
 ("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ulem\ulem.sty
 "
 \UL@box=\box33
 \UL@hyphenbox=\box34
-\UL@skip=\skip63
-\UL@hook=\toks34
-\UL@height=\dimen150
-\UL@pe=\count112
-\UL@pixel=\dimen151
+\UL@skip=\skip49
+\UL@hook=\toks33
+\UL@height=\dimen149
+\UL@pe=\count111
+\UL@pixel=\dimen150
 \ULC@box=\box35
 Package: ulem 2012/05/18
-\ULdepth=\dimen152
+\ULdepth=\dimen151
 )
 ("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\hype
 rref.sty"
@@ -442,9 +399,9 @@ Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
 ook.sty"
 Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 )
-\@linkdim=\dimen153
-\Hy@linkcounter=\count113
-\Hy@pagecounter=\count114
+\@linkdim=\dimen152
+\Hy@linkcounter=\count112
+\Hy@pagecounter=\count113
 
 ("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\pd1e
 nc.def"
@@ -452,7 +409,7 @@ File: pd1enc.def 2018/02/06 v6.86b Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
-\Hy@SavedSpaceFactor=\count115
+\Hy@SavedSpaceFactor=\count114
 
 ("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\00miktex\hype
 rref.cfg"
@@ -465,17 +422,17 @@ Package hyperref Info: Plain pages OFF on input line 4524.
 Package hyperref Info: Backreferencing OFF on input line 4529.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4762.
-\c@Hy@tempcnt=\count116
+\c@Hy@tempcnt=\count115
 
 ("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\url\url.sty"
 \Urlmuskip=\muskip11
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5115.
-\XeTeXLinkMargin=\dimen154
-\Fld@menulength=\count117
-\Field@Width=\dimen155
-\Fld@charsize=\dimen156
+\XeTeXLinkMargin=\dimen153
+\Fld@menulength=\count116
+\Field@Width=\dimen154
+\Fld@charsize=\dimen155
 Package hyperref Info: Hyper figures OFF on input line 6369.
 Package hyperref Info: Link nesting OFF on input line 6374.
 Package hyperref Info: Hyper index ON on input line 6377.
@@ -485,17 +442,17 @@ Package hyperref Info: Link coloring with OCG OFF on input line 6394.
 Package hyperref Info: PDF/A mode OFF on input line 6399.
 LaTeX Info: Redefining \ref on input line 6439.
 LaTeX Info: Redefining \pageref on input line 6443.
-\Hy@abspage=\count118
-\c@Item=\count119
-\c@Hfootnote=\count120
+\Hy@abspage=\count117
+\c@Item=\count118
+\c@Hfootnote=\count119
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
 ("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\hpdf
 tex.def"
 File: hpdftex.def 2018/02/06 v6.86b Hyperref driver for pdfTeX
-\Fld@listcount=\count121
-\c@bookmark@seq@number=\count122
+\Fld@listcount=\count120
+\c@bookmark@seq@number=\count121
 
 ("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\reru
 nfilecheck.sty"
@@ -503,27 +460,27 @@ Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
-\Hy@SectionHShift=\skip64
+\Hy@SectionHShift=\skip50
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 28.
+Package hyperref Info: Option `colorlinks' set `true' on input line 26.
  (analysis.aux)
 \openout1 = `analysis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Try loading font information for OT1+ppl on input line 37.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Try loading font information for OT1+ppl on input line 35.
 
 ("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\ot1ppl
 .fd"
@@ -567,17 +524,17 @@ File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
 ("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-p
 df.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count123
-\scratchdimen=\dimen157
+\scratchcounter=\count122
+\scratchdimen=\dimen156
 \scratchbox=\box36
-\nofMPsegments=\count124
-\nofMParguments=\count125
-\everyMPshowfont=\toks35
-\MPscratchCnt=\count126
-\MPscratchDim=\dimen158
-\MPnumerator=\count127
-\makeMPintoPDFobject=\count128
-\everyMPtoPDFconversion=\toks36
+\nofMPsegments=\count123
+\nofMParguments=\count124
+\everyMPshowfont=\toks34
+\MPscratchCnt=\count125
+\MPscratchDim=\dimen157
+\MPnumerator=\count126
+\makeMPintoPDFobject=\count127
+\everyMPtoPDFconversion=\toks35
 )
 ("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\epst
 opdf-base.sty"
@@ -594,9 +551,6 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
-Package ragged2e Info: ABD: executing \RaggedRight on input line 37.
- ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 37.
 \AtBeginShipoutBox=\box37
 
 ("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\colo
@@ -609,7 +563,7 @@ File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 147.
 )
-Package hyperref Info: Link coloring ON on input line 37.
+Package hyperref Info: Link coloring ON on input line 35.
 
 ("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\name
 ref.sty"
@@ -619,30 +573,30 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 ttitlestring.sty"
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count129
+\c@section@level=\count128
 )
-LaTeX Info: Redefining \ref on input line 37.
-LaTeX Info: Redefining \pageref on input line 37.
-LaTeX Info: Redefining \nameref on input line 37.
+LaTeX Info: Redefining \ref on input line 35.
+LaTeX Info: Redefining \pageref on input line 35.
+LaTeX Info: Redefining \nameref on input line 35.
  (analysis.out) (analysis.out)
 \@outlinefile=\write3
 \openout3 = `analysis.out'.
 
-LaTeX Font Info:    Try loading font information for OML+zplm on input line 39.
+LaTeX Font Info:    Try loading font information for OML+zplm on input line 37.
 
 
 ("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\omlzpl
 m.fd"
 File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
 )
-LaTeX Font Info:    Try loading font information for OMS+zplm on input line 39.
+LaTeX Font Info:    Try loading font information for OMS+zplm on input line 37.
 
 
 ("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\omszpl
 m.fd"
 File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
 )
-LaTeX Font Info:    Try loading font information for OMX+zplm on input line 39.
+LaTeX Font Info:    Try loading font information for OMX+zplm on input line 37.
 
 
 ("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\omxzpl
@@ -650,18 +604,18 @@ m.fd"
 File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
 )
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 12.50409pt on input line 39.
+(Font)              scaled to size 12.50409pt on input line 37.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 9.37807pt on input line 39.
+(Font)              scaled to size 9.37807pt on input line 37.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 7.29405pt on input line 39.
+(Font)              scaled to size 7.29405pt on input line 37.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 12.50409pt on input line 39.
+(Font)              scaled to size 12.50409pt on input line 37.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 9.37807pt on input line 39.
+(Font)              scaled to size 9.37807pt on input line 37.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 7.29405pt on input line 39.
-LaTeX Font Info:    Try loading font information for OT1+zplm on input line 39.
+(Font)              scaled to size 7.29405pt on input line 37.
+LaTeX Font Info:    Try loading font information for OT1+zplm on input line 37.
 
 
 ("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\ot1zpl
@@ -672,22 +626,22 @@ File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
 LaTeX Warning: No \author given.
 
 LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 39.
+(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 37.
 (analysis.toc
 LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ppl/b/n' tried instead on input line 1.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 10.42007pt on input line 4.
+(Font)              scaled to size 10.42007pt on input line 5.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 7.91925pt on input line 4.
+(Font)              scaled to size 7.91925pt on input line 5.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 6.25204pt on input line 4.
+(Font)              scaled to size 6.25204pt on input line 5.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 10.42007pt on input line 4.
+(Font)              scaled to size 10.42007pt on input line 5.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 7.91925pt on input line 4.
+(Font)              scaled to size 7.91925pt on input line 5.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 6.25204pt on input line 4.
+(Font)              scaled to size 6.25204pt on input line 5.
 )
 \tf@toc=\write4
 \openout4 = `analysis.toc'.
@@ -698,34 +652,44 @@ LaTeX Font Info:    Font shape `U/msb/m/n' will be
 
  [1
 
-{C:/Users/Pdeffebach/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] (../ta
-bles/land_conflict_paper_year.tex)
-(../tables/all_conflict_paper_year.tex) (../tables/fallow_security_paper.tex)
-[2
+{C:/Users/Pdeffebach/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 44.
+LaTeX Font Info:    Try loading font information for OMS+ppl on input line 60.
 
-] (../tables/hetero_political.tex) (../tables/all_categories_ec2.tex)
-(../tables/comm_conflict_year.tex) [3] (../tables/aggregate_analysis_ate.tex)
-[4]pdfTeX warning (ext4): destination with the same identifier (name{table.1}) 
+("C:\Users\Pdeffebach\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\omsppl
+.fd"
+File: omsppl.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ppl/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 60.
+ (../tables/land_conflict_paper_year.tex) [2
+
+]
+(../tables/all_conflict_paper_year.tex) (../tables/fallow_security_paper.tex)
+[3] (../tables/hetero_political.tex) (../tables/all_categories_ec2.tex)
+(../tables/comm_conflict_year.tex) [4] (../tables/aggregate_analysis_ate.tex)
+[5]pdfTeX warning (ext4): destination with the same identifier (name{table.1}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.115 ...istics and test of randomization balance}
+l.155 ...istics and test of randomization balance}
                                                   pdfTeX warning (ext4): destin
 ation with the same identifier (name{table.2}) has been already used, duplicate
  ignored
 <to be read again> 
                    \relax 
-l.124 \caption{Effects of intense treatment}
-                                             (../tables/intensive.tex) [5
+l.164 \caption{Effects of intense treatment}
+                                             (../tables/intensive.tex) [6
 
 ]pdfTeX warning (ext4): destination with the same identifier (name{table.3}) ha
 s been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.134 ...raphics and peace background on conflict}
+l.174 ...raphics and peace background on conflict}
                                                   
 (../tables/hetero_demo_conflict.tex)
-Overfull \hbox (15.06966pt too wide) in paragraph at lines 136--139
+Overfull \hbox (15.06966pt too wide) in paragraph at lines 176--179
  [] 
  []
 
@@ -733,9 +697,9 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.143 ...ce background on security and investment}
+l.183 ...ce background on security and investment}
                                                    (../tables/hetero_demo.tex)
-Overfull \hbox (15.0986pt too wide) in paragraph at lines 145--148
+Overfull \hbox (15.0986pt too wide) in paragraph at lines 185--188
  [] 
  []
 
@@ -743,110 +707,111 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.5}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.153 ...mes by demographics and peace background}
+l.193 ...mes by demographics and peace background}
                                                   
 (../tables/summary_stats_demo.tex)
-Overfull \hbox (15.1044pt too wide) in paragraph at lines 155--158
+Overfull \hbox (15.1044pt too wide) in paragraph at lines 196--199
  [] 
  []
 
-[6
+[7
 
-] [7]pdfTeX warning (ext4): destination with the same identifier (name{table.6}
+] [8]pdfTeX warning (ext4): destination with the same identifier (name{table.6}
 ) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.163 ...Questions on Attitudes, Norms and Skills}
-                                                   [8
+l.204 ...Questions on Attitudes, Norms and Skills}
+                                                   [9
 
-]
-LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 175.
-pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
- been already used, duplicate ignored
+]pdfTeX warning (ext4): destination with the same identifier (name{table.1}) ha
+s been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.178 ...ions, general and land conflict combined}
+l.219 ...ions, general and land conflict combined}
                                                   
 (../tables/conflict_adj_p_year.tex)pdfTeX warning (ext4): destination with the 
 same identifier (name{table.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.188 ... land conflict results, endlines 1 and 2}
+l.230 ... land conflict results, endlines 1 and 2}
                                                   
-(../tables/land_conflict_year.tex) [9
+(../tables/land_conflict_year.tex) [10
 
 ]pdfTeX warning (ext4): destination with the same identifier (name{table.3}) ha
 s been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.197 ...neral conflict results, endlines 1 and 2}
+l.239 ...neral conflict results, endlines 1 and 2}
                                                   
-(../tables/all_conflict_year.tex) [10]pdfTeX warning (ext4): destination with t
+(../tables/all_conflict_year.tex) [11]pdfTeX warning (ext4): destination with t
 he same identifier (name{table.4}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.206 \caption{All land and security results}
+l.248 \caption{All land and security results}
                                               (../tables/fallow_security.tex)
-[11]pdfTeX warning (ext4): destination with the same identifier (name{table.5})
+[12]pdfTeX warning (ext4): destination with the same identifier (name{table.5})
  has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.219 ...evel Effect of Treatment Assignment Bias}
+l.261 ...evel Effect of Treatment Assignment Bias}
                                                   
 (../tables/bias_index_ec2.tex)pdfTeX warning (ext4): destination with the same 
 identifier (name{table.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.228 ...ect of Treatment Assignment on Defection}
+l.270 ...ect of Treatment Assignment on Defection}
                                                   
-(../tables/defection_index_ec2.tex) [12]pdfTeX warning (ext4): destination with
+(../tables/defection_index_ec2.tex) [13]pdfTeX warning (ext4): destination with
  the same identifier (name{table.7}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.237 ... of Treatment Assignment on Forum Choice}
+l.279 ... of Treatment Assignment on Forum Choice}
                                                   
 (../tables/forum_choice_index_ec2.tex)
-(../tables/managing_emotions_index_ec2.tex) [13]
+(../tables/managing_emotions_index_ec2.tex) [14]
 (../tables/mediation_index_ec2.tex) (../tables/negotiation_index_ec2.tex)
-[14] [15] (../tables/land_conflict_years_treated.tex)
-(../tables/land_conflict_years_treated_iv.tex) [16
+[15] [16] (../tables/land_conflict_years_treated.tex)
+(../tables/land_conflict_years_treated_iv.tex) [17
 
-] [17]
-(../tables/conflict_adj_p_dropped.tex) [18
+] [18]
+(../tables/conflict_adj_p_dropped.tex) [19
 
 ] (../tables/comm_conflict_year.tex)
-[19
-
-] (../tables/invest.tex) (../tables/secure.tex) (../tables/main_plot.tex)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 351.
-
 [20
 
+] (../tables/invest.tex) (../tables/secure.tex) (../tables/main_plot.tex)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 394.
+
+[21
+
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 351.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 394.
  (analysis.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 351.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 351.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 394.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 394.
 Package rerunfilecheck Info: File `analysis.out' has not changed.
-(rerunfilecheck)             Checksum: A26520D216920A47414F31254941D003;646.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 351.
+(rerunfilecheck)             Checksum: 0CC4FA2B2933E8E346987F8254D364D6;694.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 394.
  ) 
 Here is how much of TeX's memory you used:
- 8204 strings out of 492973
- 127604 string characters out of 3124477
- 332339 words of memory out of 3000000
- 11766 multiletter control sequences out of 15000+200000
- 25157 words of font info for 71 fonts, out of 3000000 for 9000
+ 8064 strings out of 492973
+ 124782 string characters out of 3124477
+ 330824 words of memory out of 3000000
+ 11621 multiletter control sequences out of 15000+200000
+ 26390 words of font info for 74 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,13n,37p,1138b,468s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,13n,37p,1138b,474s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/Pdeffebach/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8
-r.enc}<C:/Users/Pdeffebach/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/pa
-latino/uplb8a.pfb><C:/Users/Pdeffebach/AppData/Local/Programs/MiKTeX 2.9/fonts/
-type1/urw/palatino/uplr8a.pfb>
-Output written on analysis.pdf (20 pages, 100558 bytes).
+r.enc}<C:/Users/Pdeffebach/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public
+/amsfonts/cm/cmsy10.pfb><C:/Users/Pdeffebach/AppData/Local/Programs/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Pdeffebach/AppData/Local/Pr
+ograms/MiKTeX 2.9/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/Pdeffebach/AppD
+ata/Local/Programs/MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/Pde
+ffebach/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/palatino/uplri8a.pfb>
+
+Output written on analysis.pdf (21 pages, 140984 bytes).
 PDF statistics:
- 207 PDF objects out of 1000 (max. 8388607)
- 49 named destinations out of 1000 (max. 500000)
- 73 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 244 PDF objects out of 1000 (max. 8388607)
+ 59 named destinations out of 1000 (max. 500000)
+ 81 words of extra memory for PDF output out of 10000 (max. 10000000)
 

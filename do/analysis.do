@@ -31,10 +31,11 @@ qui qui do do/tables_do/summary_table
 ********************************************************************************
 * Make summary statistics of all covariates ************************************
 ********************************************************************************
-qui summary_table $C_ec2, filename(covariates_resident) subset($L1)
+* qui summary_table $C_ec2, filename(covariates_resident) subset($L1)
 
 
 local nsims = 1000
+
 ********************************************************************************
 * Comparison between ATEs in Endline 1 and Endline 2 ***************************
 ********************************************************************************
@@ -98,7 +99,7 @@ ate_maker_year $all_conflict, treat(assigned_ever) group1(resident_e1) group2(EN
          lmg_forum_inf_suc_c_ec2 ///
          lmg_conf_any_c_ec2) ///
      nsims(`nsims')
-*/
+
 
 
 ate_maker_year $comm_conflict, treat(assigned_ever) group1(ENDLINE_LEADER) group2(ENDLINE2_LEADER) controls1($comm_ctrls_apsr) controls2($comm_ctrls) filename(comm_conflict) adjustvarsg1($comm_conflict) adjustvarsg2($comm_conflict) nsims(2)
@@ -107,7 +108,6 @@ ate_maker_year $comm_conflict, treat(assigned_ever) group1(ENDLINE_LEADER) group
 * Resident-level analysis ******************************************************
 ********************************************************************************
 /* Land conflict and all conflict are moved to the E1-E2 comparison */ 
-
 ate_maker $fallow_security_paper, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(fallow_security_paper) omitpct adjustvars($fallow_security_paper) nsims(`nsims')
 
 ate_maker $fallow_security, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(fallow_security) adjustvars($fallow_security) nsims(`nsims')
@@ -118,7 +118,7 @@ ate_maker $managing_emotions_index, treat(assigned_ever) covariates($C_ec2) subs
 ate_maker $mediation_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(mediation_index_ec2) omitpct adjustvars($mediation_index) nsims(`nsims')
 ate_maker $negotiation_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(negotiation_index_ec2) omitpct adjustvars($negotiation_index) nsims(`nsims')
 ate_maker $all_index_categories, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(all_categories_ec2) omitpct adjustvars($all_index_categories) nsims(`nsims')
-*/ 
+*
 
 
 * Make a summary table of these outcomes ***************************************
@@ -177,10 +177,10 @@ qui do do/tables_do/summary_stats_demo
 
 global variables_to_interact  female_ec2 age20_40_ec2 muslim_ec2 minority_ec2 cgpeace_bc
 global summary_variables_to_interact female_ec2 age20_40_ec2 muslim_ec2 minority_ec2 cgpeace_dum_bc
-/*
+
 ate_maker_inter_demo $hetero_demo_conflict, treat(assigned_ever) covariates($C_ec2) interactions($variables_to_interact) subset($L1) filename(hetero_demo_conflict) ///
 inter1("Female") inter2("Youth") inter3("Wealth") inter4("Muslim minority") inter5("Any ethnic minority") inter6("Prior peace education") inter7("Pct. town prior peace")
-*/
+
 gen security_variables = .
 label var security_variables "\textbf{Panel E: Security and investment}"
 summary_stats_demo $conflict_adj_p  security_variables security_rights improvez fallow_index size_farm, interactions($summary_variables_to_interact) ///
@@ -197,7 +197,7 @@ filename(summary_stats_demo)
 global hetero_demo_security security_rights improvez fallow_index size_farm
 ate_maker_inter_demo $hetero_demo_security , treat(assigned_ever) covariates($C_ec2) interactions($variables_to_interact) subset($L1) filename(hetero_demo_security) ///
 inter1("Female") inter2("Youth") inter3("Wealth") inter4("Muslim minority") inter5("Any ethnic minority") inter6("Prior peace education") inter7("Pct. town prior peace")
-
+*/
 ********************************************************************************
 * See the effects of being dropped on endline 1 outcomes ***********************
 ********************************************************************************
@@ -213,5 +213,5 @@ ate_maker_dropped $conflict_adj_p_e1, treat(assigned_ever) covariates($C_apsr) s
 * Initialize the table program *************************************************
 qui do do/tables_do/aggregate_analysis_ate
 aggregate_analysis_ate $agg_analysis_variables, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(aggregate_analysis_ate)
-*/
+
 ********************************************************************************

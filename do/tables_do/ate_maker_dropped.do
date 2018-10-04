@@ -33,6 +33,7 @@ foreach y in `dep_vars'{
     mat reg_count[`y_counter',1] = e(N) // put in number of observations used in regression
     
     * Input the betas and the standard errors ******************************
+    qui svyset commcode [pweight=dropping_weight_ec2], strata(county) 
     mat reg_main[`y_counter',1] = _b[`treat'] // put in beta estimate
     mat reg_main[`y_counter',2] = _se[`treat'] // put in standard error estimate
     local p = (2 * ttail(e(df_r), abs(_b[`treat']/_se[`treat'])))
@@ -41,6 +42,7 @@ foreach y in `dep_vars'{
         if (`p' < .01)  mat stars[`y_counter',2] = 3 // less than 1%?
     local beta_treat = _b[`treat']
 
+    qui svyset commcode [pweight=weight_e1_e2], strata(county) 
     qui svy: reg `y' `regressors' if (`subset' == 1) 
     mat reg_main[`y_counter', 3] = _b[`dropped']
     mat reg_main[`y_counter', 4] = _se[`dropped']
@@ -53,12 +55,14 @@ foreach y in `dep_vars'{
 
     * Get the control means *************************************************
     // non-dropped
+    qui svyset commcode [pweight=dropping_weight_ec2], strata(county) 
     qui svy: mean `y' if (`treat' == 0 & `subset' == 1) & `dropped' == 0  
     mat mean_mat = e(b) // store the mean as a temporary local because the way stata handles matrices is dumb
     mat control_means[`y_counter',1] = mean_mat[1, 1] // put in control mean 
     local temp_mean = mean_mat[1, 1]
     mat reg_pct_control[`y_counter', 1] = 100 * `beta_treat' / `temp_mean'
     // dropped 
+    qui svyset commcode [pweight=weight_e1_e2], strata(county) 
     qui svy: mean `y' if (`treat' == 0 & `subset' == 1) & `dropped' == 1  
     mat mean_mat = e(b) // store the mean as a temporary local because the way stata handles matrices is dumb
     mat control_means[`y_counter',2] = mean_mat[1, 1] // put in control mean 
@@ -76,12 +80,11 @@ qui frmttable, statmat(reg_main) merge substat(1) sdec(3) varlabels annotate(sta
 qui frmttable, statmat(reg_pct_control) merge  varlabels
 
 frmttable using out/tables/`filename', ctitle( ///
-"", "", "", "", "", "", "Effect as pct", "" \ ///
-"", "", "", "", "", "", "\uline{\hfill of control \hfill}", "" \ ///
-"", "", "\uline{\hfill Control mean in full sample \hfill}", "", "Effect of", "Effect of", "Treatment", "Dropping" \ ///
-"Dependent variable", "N", "Not dropped", "Dropped", "Treatment (no drops)", "Dropping (full sample)", "(no drops)", "(full sample)" \ ///
+"", "", "\uline{\hfill Control mean \hfill}", "", "\uline{\hfill Effect of \hfill}", "", "Effect as pct", ""  \ ///
+"", "", "Full sample", "Dropped", "Treatment w/", "Dropping", "\uline{\hfill of control \hfill}", "" \ ///
+"Dependent variable", "N", "w/ E2 weights", "comms. only", "E2 weights", "No weights", "Treatment", "Dropping" \ ///
 "", "(1)", "(2)", "(3)", "(4)", "(5)", "(6)", "(7)") ///
-multicol(1,7,2; 2,7,2; 3,3,2;) ///
+multicol(1,3,2; 1,5,2; 1,7,2; 2,7,2) ///
 tex ///
 fragment ///
 varlabels ///
