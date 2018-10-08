@@ -35,7 +35,7 @@ qui qui do do/tables_do/summary_table
 
 
 local nsims = 1000
-
+/*
 ********************************************************************************
 * Comparison between ATEs in Endline 1 and Endline 2 ***************************
 ********************************************************************************
@@ -101,9 +101,9 @@ ate_maker_year $all_conflict, treat(assigned_ever) group1(resident_e1) group2(EN
      nsims(`nsims')
 
 
-
-ate_maker_year $comm_conflict, treat(assigned_ever) group1(ENDLINE_LEADER) group2(ENDLINE2_LEADER) controls1($comm_ctrls_apsr) controls2($comm_ctrls) filename(comm_conflict) adjustvarsg1($comm_conflict) adjustvarsg2($comm_conflict) nsims(2)
-
+*/
+ate_maker_year $comm_conflict, treat(assigned_ever) group1(ENDLINE_LEADER) group2(ENDLINE2_LEADER) controls1($comm_ctrls_apsr) controls2($comm_ctrls) filename(comm_conflict) adjustvarsg1($comm_conflict) adjustvarsg2($comm_conflict) nsims(`nsims')
+asdf
 ********************************************************************************
 * Resident-level analysis ******************************************************
 ********************************************************************************
