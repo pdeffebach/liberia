@@ -117,8 +117,8 @@ ate_maker $forum_choice_index, treat(assigned_ever) covariates($C_ec2) subset($L
 ate_maker $managing_emotions_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(managing_emotions_index_ec2) omitpct adjustvars($managing_emotions_index) nsims(`nsims')
 ate_maker $mediation_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(mediation_index_ec2) omitpct adjustvars($mediation_index) nsims(`nsims')
 ate_maker $negotiation_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(negotiation_index_ec2) omitpct adjustvars($negotiation_index) nsims(`nsims')
-ate_maker $all_index_categories, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(all_categories_ec2) omitpct adjustvars($all_index_categories) nsims(`nsims')
 */
+ate_maker $all_index_categories, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(all_categories_ec2) omitpct adjustvars($all_index_categories) nsims(`nsims')
 
 
 * Make a summary table of these outcomes ***************************************

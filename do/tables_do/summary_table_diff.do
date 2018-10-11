@@ -7,11 +7,15 @@ program define summary_table_diff
     syntax varlist [if], FILENAME(name) SUBSET(varlist) DIFFVAR(varlist) COVARIATES(varlist)
 
 
-    mat stats = J(`:word count `varlist'', 6, .)
+    mat means = J(`:word count `varlist'', 2, .)
+    mat medians = J(`:word count `varlist'', 2, .)
+    mat sds = J(`:word count `varlist'', 2, .)
     mat regress_diff = J(`:word count `varlist'', 2, .)
     mat regress_diff_stars = J(`:word count `varlist'', 2,0)
 
-    mat rownames stats = `varlist'
+    mat rownames means = `varlist'
+    mat rownames medians = `varlist'
+    mat rownames sds = `varlist'
     mat rownames regress_diff = `varlist'
 
 
@@ -20,15 +24,15 @@ program define summary_table_diff
 
     qui summarize `var' if `subset' == 1 & `diffvar' == 0 , detail
 
-    mat stats[`i', 1] = r(mean)
-    mat stats[`i', 2] = r(sd)
-    mat stats[`i', 3] = r(p50)
+    mat means[`i', 1] = r(mean)
+    mat sds[`i', 1] = r(sd)
+    mat medians[`i', 1] = r(p50)
 
     qui summarize `var' if `subset' == 1 & `diffvar' == 1, detail
 
-    mat stats[`i', 4] = r(mean)
-    mat stats[`i', 5] = r(sd)
-    mat stats[`i', 6] = r(p50)
+    mat means[`i', 2] = r(mean)
+    mat sds[`i', 2] = r(sd)
+    mat medians[`i', 2] = r(p50)
 
 
     svy: regress `var' `diffvar' district1-district14 if `subset' == 1
@@ -44,13 +48,15 @@ program define summary_table_diff
     local ++i
 }
 
-frmttable, statmat(stats) varlabels 
+frmttable, statmat(means) varlabels 
+frmttable, statmat(medians) varlabels merge
+frmttable, statmat(sds) varlabels merge
 frmttable, statmat(regress_diff) annotate(regress_diff_stars) asymbol(*,**,***) merge varlabels substat(1)
 frmttable using out/tables/`filename', ctitle( ///
-"", "\uline{\hfill Non-dropped communities \hfill}", "", "", "\uline{\hfill Dropped communities \hfill}", "", "", "Effect of" \ ///
-"Baseline covariate", "Mean", "SD", "Median", "Mean", "SD", "Median", "Dropping" ///
+"", "\uline{\hfill Mean \hfill}", "", "\uline{\hfill Median \hfill}", "", "\uline{\hfill Std. dev. \hfill}", "", "Effect of" \ ///
+"Baseline covariate", "Kept", "Dropped", "Kept", "Dropped", "Kept", "Dropped", "Dropping" ///
 ) ///
-multicol(1,2,3;1,5,3) ///
+multicol(1,2,2;1,4,2;1,6,2) ///
 tex ///
 fragment ///
 varlabels ///
