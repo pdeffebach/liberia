@@ -1,10 +1,10 @@
 \contentsline {section}{\numberline {1}Explanation}{2}{section.1}
 \contentsline {section}{\numberline {2}Paper Tables}{3}{section.2}
 \contentsline {section}{\numberline {3}Appendix Tables}{5}{section.3}
-\contentsline {section}{\numberline {4}Extra Tables}{9}{section.4}
-\contentsline {subsection}{\numberline {4.1}All conflict and security variables}{10}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Subcomponents of Norms and Skills}{13}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Using years-of-treatment as treatment variable}{16}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Effect of being dropped on violence outcomes}{19}{subsection.4.4}
-\contentsline {subsection}{\numberline {4.5}Community-Level Impacts}{20}{subsection.4.5}
-\contentsline {subsection}{\numberline {4.6}Plot-Level Impacts}{21}{subsection.4.6}
+\contentsline {section}{\numberline {4}Extra Tables}{10}{section.4}
+\contentsline {subsection}{\numberline {4.1}All conflict and security variables}{11}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Subcomponents of Norms and Skills}{14}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Using years-of-treatment as treatment variable}{17}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Effect of being dropped on violence outcomes}{20}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Community-Level Impacts}{22}{subsection.4.5}
+\contentsline {subsection}{\numberline {4.6}Plot-Level Impacts}{23}{subsection.4.6}

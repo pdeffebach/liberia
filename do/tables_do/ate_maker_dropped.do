@@ -9,9 +9,9 @@ local number_dep_vars    `:word count `dep_vars''
 mat reg_count       = J(`number_dep_vars',1,.)
 
 mat control_means    = J(`number_dep_vars',2,.)
-mat reg_main        = J(`number_dep_vars',4,.)
-mat stars          = J(`number_dep_vars',4,0)
-mat reg_pct_control= J(`number_dep_vars',2,.)
+mat reg_main        = J(`number_dep_vars',6,.)
+mat stars          = J(`number_dep_vars',6,0)
+mat reg_pct_control= J(`number_dep_vars',6,.)
 
 
 mat rownames reg_count = `dep_vars'

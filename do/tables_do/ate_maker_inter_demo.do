@@ -5,7 +5,7 @@ program define ate_maker_inter_demo
 	clear mata 
 	set matsize 10000
 	syntax varlist, TREAT(varlist) COVARIATES(varlist) INTERACTIONS(varlist) FILENAME(name) SUBSET(varlist) ///
-	INTER1(string) INTER2(string) INTER3(string) INTER4(string) INTER5(string) INTER6(string) INTER7(string)
+	INTER1(string) INTER2(string) INTER3(string) INTER4(string) INTER5(string) INTER6(string) 
 
 	local dep_vars `varlist' // creating a local for dep. variables
 	local M = `:word count `dep_vars''
@@ -53,7 +53,8 @@ program define ate_maker_inter_demo
 
 	loc m = 1
 	foreach y in `dep_vars'{ 
-		
+	qui sum `y' if `subset' == 1 
+	if r(N) != 0 {
 		loc k = 1
 		foreach inter_var in `interactions' {
 
@@ -104,6 +105,7 @@ program define ate_maker_inter_demo
 
 		local ++k
 		}
+	}
 	local ++m	
 	}
 
@@ -111,14 +113,11 @@ program define ate_maker_inter_demo
 * Merge matrices to form our larger, final matrix. *****************************
 ********************************************************************************
 	cap frmttable, statmat(reg_inter) sdec(3) substat(1) annotate(stars) asymbol(*,**,***) varlabels squarebrack 
-	
-	//local title_row1 = "Political Connectedness"
 
-	//local title_row2  "Treatment", "Interaction", "Sum",
 	frmttable using out/tables/`filename', ///
-	ctitle("", "\uline{\hfill `inter1' \hfill}", "","", "\uline{\hfill `inter2' \hfill}", "","", "\uline{\hfill `inter3' \hfill}","","", "\uline{\hfill `inter4' \hfill}","","", "\uline{\hfill `inter5' \hfill}","","", "\uline{\hfill `inter6' \hfill}","","", "\uline{\hfill `inter7' \hfill}","",""  \ ///
-	 "", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum","Treatment", "Interaction", "Sum","Treatment", "Interaction", "Sum") ///
-	multicol(1,2,3; 1,5,3; 1,8,3; 1,11,3; 1,14,3; 1,17,3; 1,20,3) ///
+	ctitle("", "\uline{\hfill `inter1' \hfill}", "","", "\uline{\hfill `inter2' \hfill}", "","", "\uline{\hfill `inter3' \hfill}","","", "\uline{\hfill `inter4' \hfill}","","", "\uline{\hfill `inter5' \hfill}","","", "\uline{\hfill `inter6' \hfill}","","", \ ///
+	 "", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum","Treatment", "Interaction", "Sum") ///
+	multicol(1,2,3; 1,5,3; 1,8,3; 1,11,3; 1,14,3; 1,17,3) ///
 	tex ///
 	fragment ///
 	varlabels ///

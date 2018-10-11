@@ -101,9 +101,9 @@ ate_maker_year $all_conflict, treat(assigned_ever) group1(resident_e1) group2(EN
      nsims(`nsims')
 
 
-*/
+
 ate_maker_year $comm_conflict, treat(assigned_ever) group1(ENDLINE_LEADER) group2(ENDLINE2_LEADER) controls1($comm_ctrls_apsr) controls2($comm_ctrls) filename(comm_conflict) adjustvarsg1($comm_conflict) adjustvarsg2($comm_conflict) nsims(`nsims')
-asdf
+
 ********************************************************************************
 * Resident-level analysis ******************************************************
 ********************************************************************************
@@ -118,7 +118,7 @@ ate_maker $managing_emotions_index, treat(assigned_ever) covariates($C_ec2) subs
 ate_maker $mediation_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(mediation_index_ec2) omitpct adjustvars($mediation_index) nsims(`nsims')
 ate_maker $negotiation_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(negotiation_index_ec2) omitpct adjustvars($negotiation_index) nsims(`nsims')
 ate_maker $all_index_categories, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(all_categories_ec2) omitpct adjustvars($all_index_categories) nsims(`nsims')
-*
+*/
 
 
 * Make a summary table of these outcomes ***************************************
@@ -148,7 +148,7 @@ ate_maker_intensive jpc_attend $intensive, treatmain(assigned_ever) treatintense
 * Community-level impacts ******************************************************
 ********************************************************************************
 * Make the tables **************************************************************
-ate_maker $comdispute_leader, treat(assigned_ever) covariates($comm_ctrls) subset(ENDLINE2_LEADER) filename(comdispute_leader) adjustvars($comdispute_leader) nsims(`nsims')
+// ate_maker $comdispute_leader, treat(assigned_ever) covariates($comm_ctrls) subset(ENDLINE2_LEADER) filename(comdispute_leader) adjustvars($comdispute_leader) nsims(`nsims')
 summary_table $comdispute_leader, filename(comdispute_leader_summary) subset(ENDLINE2_LEADER)
 
 
@@ -175,36 +175,37 @@ IV_maker_year $land_conflict_paper, exogenous(block1 block2 block3) endogenous(y
 qui do do/tables_do/ate_maker_inter_demo
 qui do do/tables_do/summary_stats_demo
 
-global variables_to_interact  female_ec2 age20_40_ec2 muslim_ec2 minority_ec2 cgpeace_bc
-global summary_variables_to_interact female_ec2 age20_40_ec2 muslim_ec2 minority_ec2 cgpeace_dum_bc
-
+global variables_to_interact            female_ec2 age20_40_ec2 cwealthindex_bc             minority_ec2 canypeace_bc cgpeace_bc
+global summary_variables_to_interact    female_ec2 age20_40_ec2 cwealthindex_below_med_bc   minority_ec2 canypeace_dum_bc cgpeace_dum_bc
 ate_maker_inter_demo $hetero_demo_conflict, treat(assigned_ever) covariates($C_ec2) interactions($variables_to_interact) subset($L1) filename(hetero_demo_conflict) ///
-inter1("Female") inter2("Youth") inter3("Wealth") inter4("Muslim minority") inter5("Any ethnic minority") inter6("Prior peace education") inter7("Pct. town prior peace")
+inter1("Female") ///
+inter2("20-40 years old") ///
+inter3("Wealth index") ///
+inter4("Any ethnic minority") ///
+inter5("\% town peace education at baseline") ///
+inter6("\% town peace group at baseline")
 
-gen security_variables = .
-label var security_variables "\textbf{Panel E: Security and investment}"
-summary_stats_demo $conflict_adj_p  security_variables security_rights improvez fallow_index size_farm, interactions($summary_variables_to_interact) ///
+summary_stats_demo $conflict_adj_p, interactions($summary_variables_to_interact) ///
 intertitle1("Gender") inter1ZERO("Men") inter1ONE("Women") ///
 intertitle2("Age") inter2ZERO("above 40") inter2ONE("20-40") ///
-intertitle3("Muslim minority") inter3ZERO("No") inter3ONE("Yes") ///
+intertitle3("Below median wealth") inter3ZERO("No") inter3ONE("Yes") ///
 intertitle4("Any ethnic minority") inter4ZERO("No") inter4ONE("Yes") ///
-intertitle5("Any town Prior peace education") inter5ZERO("No") inter5ONE("Yes") ///
+intertitle5("Any peace education in town at baseline") inter5ZERO("No") inter5ONE("Yes") ///
+intertitle6("Any peace group in town at baseline") inter6ZERO("No") inter6ONE("Yes") ///
 subset(ENDLINE2_RESIDENT) ///
 filename(summary_stats_demo)
 
-
-* Security and Investment ******************************************************
-global hetero_demo_security security_rights improvez fallow_index size_farm
-ate_maker_inter_demo $hetero_demo_security , treat(assigned_ever) covariates($C_ec2) interactions($variables_to_interact) subset($L1) filename(hetero_demo_security) ///
-inter1("Female") inter2("Youth") inter3("Wealth") inter4("Muslim minority") inter5("Any ethnic minority") inter6("Prior peace education") inter7("Pct. town prior peace")
-*/
 ********************************************************************************
 * See the effects of being dropped on endline 1 outcomes ***********************
 ********************************************************************************
 ate_maker_dropped $conflict_adj_p_e1, treat(assigned_ever) covariates($C_apsr) subset(ENDLINE_RESIDENT) filename(conflict_adj_p_dropped) dropped(was_dropped_ec2)
+// see regression difference of dropping 
+do do/tables_do/summary_table_diff
+cap drop firs_person
+cap bysort commcode: gen first_person = (_n == 1)
+summary_table_diff $comm_controls_comparison if first_person == 1, subset(first_person) filename(dropped_summary_table) diffvar(was_dropped_ec2) covariates(district1-district14)
 
-
-
+asdf
 
 ********************************************************************************
 * Get the aggregate number of incidents prevented ******************************
@@ -212,6 +213,7 @@ ate_maker_dropped $conflict_adj_p_e1, treat(assigned_ever) covariates($C_apsr) s
 
 * Initialize the table program *************************************************
 qui do do/tables_do/aggregate_analysis_ate
+svyset commcode [pweight=weight_e1_e2], strata(county) 
 aggregate_analysis_ate $agg_analysis_variables, treat(assigned_ever) group1(resident_e1) group2(ENDLINE2_RESIDENT) controls1($C_apsr) controls2($C_ec2) filename(aggregate_analysis_ate)
 
 ********************************************************************************

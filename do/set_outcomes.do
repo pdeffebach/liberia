@@ -246,13 +246,15 @@ gl negotiation_index ///
         skforgive_st_ec2
 
  gl all_index_categories ///
-    bias_index_ec2 ///
+    all_cats_index_ec2 ///
+        bias_index_ec2 ///
         defection_index_ec2 ///
         empathy_index_ec2 ///
         forum_choice_index_ec2 ///
         managing_emotions_index_ec2 ///
         mediation_index_ec2 ///
         negotiation_index_ec2
+
 
 global intensive ///
     anylndconf_u_ec2 ///
@@ -285,10 +287,14 @@ global comm_conflict ///
         suspwitc_dum_el2    ///
         sasycutl_dum_el2    
 
+cap drop hetero_label
+gen hetero_label = . 
+label var hetero_label "\textbf{Conditional on a land dispute}"
 global hetero_demo_conflict ///
     anylndconf_u_ec2 ///
     unrslv_lnd_conf_u_ec2 ///
-    conf_damage_u_ec2 ///
+    hetero_label ///
+    conf_any_c_ec2 ///
     forum_lastsuc_c_ec2
 
 global agg_analysis_variables ///

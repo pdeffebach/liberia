@@ -463,6 +463,7 @@ local negotiation_index_vars nocompromop_el2 nocompromco_el2 nogiftop_el2 nogift
 make_index `negotiation_index_vars', indexname(negotiation_index_el2)
 
 
+
 ********************************************************************************
 * Cheat! Fill in the _ec2 variables with leader data ***************************
 ********************************************************************************
@@ -478,6 +479,14 @@ forum_choice_index managing_emotions_index mediation_index negotiation_index {
  		replace `sub'_ec2 = `sub'_el2 if (ENDLINE2_LEADER == 1)
  }
 
+make_index ///
+	bias_index_ec2 ///
+	defection_index_ec2 ///
+	empathy_index_ec2 ///
+	forum_choice_index_ec2 ///
+	managing_emotions_index_ec2 ///
+	mediation_index_ec2 ///
+	negotiation_index_ec2, indexname(all_cats_index_ec2)
 
 
 ********************************************************************************
@@ -620,7 +629,13 @@ foreach y in female age40_60 age20_40 under30 cwealthindex_bc rltn_to_powerful m
 * Make some dummies *************************************************************
 gen cgpeace_dum_bc = cgpeace_bc != 0
 label var cgpeace_dum_bc "Any peace group in town at baseline"
-			
+gen canypeace_dum_bc = canypeace_bc != 0 
+label var canypeace_dum_bc "Community had peace education at basline"
+gen cwealthindex_below_med_bc = 0 
+sum cwealthindex_bc if ENDLINE_RESIDENT == 1, det
+replace cwealthindex_below_med_bc = 1 if cwealthindex_bc < r(p50)
+
+
 ********************************************************************************
 * Constructing new violence measures *******************************************
 ********************************************************************************
@@ -979,26 +994,37 @@ local farmnum 2
 local othernum 3
 
 * Index of security through rights *********************************************
+label def how_sure 0 "Not sure at all" 1 "Not sure" 2 "Sure" 3 "Very sure"
 foreach type in house farm {
 	cap drop __00*
 	* Secure boundaries
 	qui gen secured_`type' = -1*la``type'num'`type'sec_ec2 + 4
+	label values secured_`type' how_sure
+	gen secured_dum_`type' = inlist(secured_`type', 2, 3)
 	la var secured_`type' "Secure boundaries, `type'"
 
 	* Appoint someone to inherit
 	gen inherit_`type' = -1*la``type'num'`type'inherit_ec2 + 4
+	label values inherit_`type' how_sure
+	gen inherit_dum_`type' = inlist(inherit_`type', 2, 3)
 	la var inherit_`type' "Ability to inherit, `type'"
 	
 	* Sell land for money
 	gen sell_`type' = -1*la``type'num'`type'sell_ec2 + 4
+	label values sell_`type' how_sure
+	gen sell_dum_`type' = inlist(sell_`type', 2, 3)
 	la var sell_`type' "Ability to sell, `type'"
 	
 	* Pawn land for money
 	gen pawn_`type' = -1*la``type'num'`type'pawnfut_ec2 + 4
+	label values pawn_`type' how_sure
+	gen pawn_dum_`type' = inlist(pawn_`type', 2, 3)
 	la var pawn_`type' "Ability to pawn, `type'"
 	
 	* Survey land
 	gen survey_`type' = -1*la``type'num'`type'svyfut_ec2 + 4
+	label values survey_`type' how_sure
+	gen survey_dum_`type' = inlist(survey_`type', 2, 3)
 	la var survey_`type' "Ability to survey, `type'"
 	
 	* Z-score
@@ -1644,7 +1670,6 @@ drop self_suff_bc
 rename improvez_* 		z_improvement_*
 rename improve_* 		improvement_*
 rename mny_* 			monetary_improvement_*
-rename nonmoney_* 		non_monetary_improvement_*
 rename secured_*		level_of_security_*
 rename fallowland_* 	fallow_index_*
 rename distenure_*		non_market_tenure_*

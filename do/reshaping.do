@@ -43,7 +43,7 @@ gl outcomes_for_reshape ///
 	spentgut			///
 	spentfence			///
 	spenttree			///
-	non_monetary_improvement			///
+	nonmoney			///
 	daysexisting		///
 	daysnew				///
 	acresgut			///
@@ -56,6 +56,11 @@ gl outcomes_for_reshape ///
 	sell				///
 	pawn				///
 	level_of_security			///
+	inherit_dum				///
+	survey_dum  		///
+	sell_dum				///
+	pawn_dum				///
+	level_of_security_dum			///
 	fallow_index			///
 	non_market_tenure		///
 	market_tenure		///
@@ -74,7 +79,7 @@ drop sizec50
 
 label var z_improvement				"Property investment index, z-score"
 label var monetary_improvement		"\quad Monetary value of improvement, house and farm, (z-score)"
-label var non_monetary_improvement	"\quad Non-monetary improvement, house and farm (z-score)"
+label var nonmoney	"\quad Non-monetary improvement, house and farm (z-score)"
 label var improvement				"\quad Made an improvement, house and farm"
 
 label var improveexisting			"Improved Existing house"
@@ -95,14 +100,19 @@ label var acrestree					"Acres affected by tree improvement in farm"
 
 
 label var security_rights 			"Security index through rights"
-label var inherit					"\quad Has ability to inherit, house and farm"
-label var sell						"\quad Has ability to sell, house and farm"
-label var pawn						"\quad Has ability to pawn, house and farm"
-label var survey					"\quad Has ability to survey, house and farm"
+label var inherit					"\quad Ability to inherit, house and farm (0-3)"
+label var sell						"\quad Ability to sell, house and farm (0-3)"
+label var pawn						"\quad Ability to pawn, house and farm (0-3)"
+label var survey					"\quad Ability to survey, house and farm (0-3)"
 label var level_of_security			"\quad Level of security of boundaries, house and farm"
+label var inherit_dum					"\quad Has ability to inherit, house and farm"
+label var sell_dum						"\quad Has ability to sell, house and farm"
+label var pawn_dum						"\quad Has ability to pawn, house and farm"
+label var survey_dum					"\quad has ability to survey, house and farm"
+label var level_of_security_dum			"\quad Feels secure in boundaries, house and farm"
 label var fallow_index				"Index of fallow land, farm"
-label var non_market_tenure			"Access to land through non-market, house and farm"
-label var market_tenure				"Access to land through market, house and farm"
+label var non_market_tenure			"Has access to land through non-market, house and farm"
+label var market_tenure				"has access to land through market, house and farm"
 label var non_kin					"Did not receive from family member, house and farm"
 label var ownership_self		"Individual owns land"
 label var ownership_fam		"Individual or family owns land"

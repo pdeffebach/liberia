@@ -3,8 +3,8 @@
 * Labeling variables ***********************************************************
 ********************************************************************************
 // Endline 1 variable
-label var jpc_attend_ec 	"Attended program"
-
+label var jpc_attend_ec 	"Attended program if treated"
+label var jpc_attend "Attended program if treated"
 // treatment 
 label var months_treated 		"Months since implementation"
 
@@ -86,13 +86,15 @@ label var improvez_house 		"\quad Improvement index for house"
 ********************************************************************************
 * Norms and Skills *************************************************************
 ********************************************************************************
-label var bias_index_ec2 "Bias index"
-label var defection_index_ec2 "Defection index"
-label var empathy_index_ec2 "Empathy index"
-label var forum_choice_index_ec2 "Forum choice index"
-label var managing_emotions_index_ec2 "Managing emotions index"
-label var mediation_index_ec2 "Mediation index"
-label var negotiation_index_ec2 "Negotiation index"
+label var all_cats_index_ec2 "Index of all norms combined"
+label var bias_index_ec2 "\quad Bias index"
+label var defection_index_ec2 "\quad Defection index"
+label var empathy_index_ec2 "\quad Empathy index"
+label var forum_choice_index_ec2 "\quad Forum choice index"
+label var managing_emotions_index_ec2 "\quad Managing emotions index"
+label var mediation_index_ec2 "\quad Mediation index"
+label var negotiation_index_ec2 "\quad Negotiation index"
+
 
 label var bias_index_el2 "Bias index"
 label var defection_index_el2 "Defection index"
@@ -261,6 +263,18 @@ label var nogossipop_el2 			"\quad Thinks bad to gossip"
 label var nogossipco_el2 			"\quad Comm. thinks bad to gossip"
 label var nomediateco_el2 			"\quad Community brings people together in palava"
 
+label var cedulevel_bc "Mean town educational attainment (years)"
+label var ctownhh_log_el "Log number of households in community"
+label var cwealthindex_bc "Town wealth index"
+label var cviol_experienced_bc "Town average violence experience index (0-13)"
+label var clndtake_bc "\% of town reporting land taken at baseline"
+label var cviol_scale_bc "\% o town reporting assault at baseline"
+label var clandconf_scale_bc "\% of town reporting land conflict at baseline"
+label var cwitchcraft_scale_bc "\% of town reporting witchcraft victimization at baseline"
+label var cpalaviol_imputed_bc "\% of town reporting violence at drinking water source at baseline"
+label var cprog_ldr_beliefs_bc "Index of progressive political beliefs of town at baseline"
+label var cattitudes_tribe_bc "Index of progressive ethnic attitudes at baseline"
+label var crelmarry_bc "\% of town accepting inter-religious marriage at baseline"
 
 * Standardized Leaders *********************************************************
 label var nospoilpropop_st_el2 			"\quad Thinks shouldn't spoil property (z-score)"

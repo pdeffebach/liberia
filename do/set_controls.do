@@ -20,6 +20,20 @@ gl L2 ENDLINE2_LEADER
 gl C_ec2 $ate_ctrls $comm_ctrls
 gl C_el2 $ate_ctrls_leader $comm_ctrls
 
-svyset commcode [pweight=weight_e1_e2], strata(county)  // Set survey data specific to each dataset
+gl comm_controls_comparison ///
+    cedulevel_bc ///
+    ctownhh_log_el ///
+    cwealthindex_bc ///
+    cviol_experienced_bc ///
+    clndtake_bc ///
+    cviol_scale_bc ///
+    clandconf_scale_bc ///
+    cwitchcraft_scale_bc ///
+    cpalaviol_imputed_bc ///
+    cprog_ldr_beliefs_bc ///
+    cattitudes_tribe_bc  ///
+    crelmarry_bc
+
+svyset commcode [pweight=weight_e1_e2], strata(county)  // Set survey data 
 
 ***
