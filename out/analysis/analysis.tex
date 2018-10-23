@@ -39,46 +39,6 @@
 \newpage
 \clearpage
 
-\section{Explanation}
-
-\subsection*{Reviewers are concerned with who in particular feels insecure about their property. Which groups feel insecure?} 
-
-\par Table \ref{summary_stats_demo} shows means of all key outcomes across various demographic dummy variables. Security rights variables are in the bottom, in panel E. I have not yet done a regression analysis for these variables yet, however I believe the current table is still informative. Please let me know if you want to see this exact table, but with regression estimates instead. 
-
-\subsection*{Reviewers are concerned about us dropping communities between Endline 1 and Endline 2. What was the process used to select which communities to drop?}
-
-\begin{enumerate}
-    \item Enumerators gave use a list of 68 communities (some of whom were treated) that they deemed difficult to reach.
-    \item We ran a probit regression to predict, for each community, the probability of assigment to treatment. 
-    \item Of the "difficult to reach" communities, of which 41 were eligible to be dropped, we dropped 20 and made a weight  for the rest that is 43/20
-    \item Of the communities in the bottom 35\% of predicted probability of assignment to treatment, of which 41 were eligible to be dropped, we dropped 20 and make a weight for the rest that is 41/20. 
-\end{enumerate}
-
-What defines being eligible to be dropped? 
-
-\begin{itemize}
-    \item Being a control community
-    \item Not being a control area in a in a larger community where another area in that community is treated (this is just one community). 
-\end{itemize}
-
-\subsection*{Do the weights affect our Endline 1 results at all?}
-
-Table \ref{conflict_adj_p_dropped} answers this question. It shows two regressions. First, a regression with the Endline communities with Endline 2 weights. This means that the communities that were dropped are not in the regression, and communities that \textit{could have been dropped}, but weren't, are weighted more heavily. As you can see, all of our main effects hold. 
-
-Second, it shows the effect of being a dropped community on all outcomes. There are no weights in this regression. As you can see, being a dropped is never a significant predictor of violence. 
-\begin{itemize}
-    \item \textit{Note: I do not yet have a pretty table showing correlates of being dropped, but can make one if we still think it is necessary.} 
-    \item \textit{Additional note: An earlier version of Table \ref{conflict_adj_p_dropped} where we had only the sample of non-dropped communities, but without additional weighting. I toyed with the idea of putting that regression in Table \ref{conflict_adj_p_dropped} as well, but decided there was enough information in the table already. Results are the exact same.}
-\end{itemize}
-
-\subsection*{Reviewers are concerned about how we handle multiple hypotheses. What are we doing to respond?}
-In all of our ITT tables, we have corrected for multiple outcomes using the Westfall-Young method and the Sidak-Holmes method. In particular, we are using the \texttt{wyoung} package from \texttt{ssc} in Stata. The Westfall-Young approach involves constructing simulated p-values from bootstrapping (sampling with replacement). We came into this process under the impression that the Westfall-Young method would be less restrictive than the Holmes method, but this has not been the case. In all likelihood this is because out outcome measures are noisy. 
-
-Tables \ref{land_conflict_paper_year} and \ref{all_conflict_paper_year} have a unique set of corrections, where we avoid correcting for the sub-components of indices. Table \ref{conflict_adj_p_year} shows adjusted results for land and general conflict in the same family. All other tables just have all outcomes in the table placed into the same family. 
-
-
-
-
 
 \section{Paper Tables}
 \begin{table}[H]
@@ -152,9 +112,19 @@ Tables \ref{land_conflict_paper_year} and \ref{all_conflict_paper_year} have a u
 \renewcommand{\thetable}{A.\arabic{table}}
 
 \begin{table}[H]
-\caption{2008 baseline summary statistics and test of randomization balance}
+\caption{2008 baseline summary statistics and test of randomization balance for residents}
 \begin{center}
 \begin{adjustbox}{max width = \textwidth}
+\input{../tables/baseline_balance_resident}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{2008 baseline summary statistics and test of randomization balance for communities}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/baseline_balance_resident}
 \end{adjustbox}
 \end{center}
 \end{table}
@@ -355,11 +325,21 @@ Tables \ref{land_conflict_paper_year} and \ref{all_conflict_paper_year} have a u
 \end{table}
 
 \begin{table}[H]
+\caption{Comparison of resident-level baseline summary statistics for dropped and non-dropped communities}
+\label{summary_table_dropped}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/dropped_summary_table_resident}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\begin{table}[H]
 \caption{Comparison of community-level baseline summary statistics for dropped and non-dropped communities}
 \label{summary_table_dropped}
 \begin{center}
 \begin{adjustbox}{max width = \textwidth}
-\input{../tables/dropped_summary_table}
+\input{../tables/dropped_summary_table_comm}
 \end{adjustbox}
 \end{center}
 \end{table}
@@ -406,6 +386,16 @@ Tables \ref{land_conflict_paper_year} and \ref{all_conflict_paper_year} have a u
 \begin{center}
 \begin{adjustbox}{max width = \textwidth}
 \input{../tables/main_plot}
+\end{adjustbox}
+\end{center}
+\end{table}
+
+\subsection{Power calculations}
+\begin{table}[H]
+\caption{Plot-Level Effect of Treatment Assignment on Main Outcomes}
+\begin{center}
+\begin{adjustbox}{max width = \textwidth}
+\input{../tables/power_calcs}
 \end{adjustbox}
 \end{center}
 \end{table}

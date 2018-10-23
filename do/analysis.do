@@ -117,9 +117,8 @@ ate_maker $forum_choice_index, treat(assigned_ever) covariates($C_ec2) subset($L
 ate_maker $managing_emotions_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(managing_emotions_index_ec2) omitpct adjustvars($managing_emotions_index) nsims(`nsims')
 ate_maker $mediation_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(mediation_index_ec2) omitpct adjustvars($mediation_index) nsims(`nsims')
 ate_maker $negotiation_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(negotiation_index_ec2) omitpct adjustvars($negotiation_index) nsims(`nsims')
-*/
 ate_maker $all_index_categories, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(all_categories_ec2) omitpct adjustvars($all_index_categories) nsims(`nsims')
-
+*/
 
 * Make a summary table of these outcomes ***************************************
 qui summary_table $land_conflict, filename(land_conflict_summary) subset($L1)
@@ -198,14 +197,20 @@ filename(summary_stats_demo)
 ********************************************************************************
 * See the effects of being dropped on endline 1 outcomes ***********************
 ********************************************************************************
-ate_maker_dropped $conflict_adj_p_e1, treat(assigned_ever) covariates($C_apsr) subset(ENDLINE_RESIDENT) filename(conflict_adj_p_dropped) dropped(was_dropped_ec2)
+do do/tables_do/ate_maker_dropped
+ate_maker_dropped $conflict_adj_p_e1, treat(assigned_ever) covariates($C_apsr) subset(resident_e1) filename(conflict_adj_p_dropped) dropped(was_dropped_ec2)
+
+
+svyset [pweight=s_weight2], psu(commcode) strata(county)
 // see regression difference of dropping 
 do do/tables_do/summary_table_diff
-cap drop firs_person
-cap bysort commcode: gen first_person = (_n == 1)
-summary_table_diff $comm_controls_comparison if first_person == 1, subset(first_person) filename(dropped_summary_table) diffvar(was_dropped_ec2) covariates(district1-district14)
+summary_table_diff $baseline_controls_comparison, subset(BASELINE_RESIDENT) filename(dropped_summary_table_resident) diffvar(was_dropped_ec2) covariates(assigned_ever county1 county2) zerostring("Kept") onestring("Dropped")
+summary_table_diff $comm_controls_comparison, subset(COMMLEVEL) filename(dropped_summary_table_comm) diffvar(was_dropped_ec2) covariates(assigned_ever county1 county2) zerostring("Kept") onestring("Dropped")
 
-asdf
+summary_table_diff $baseline_controls_comparison, subset(BASELINE_RESIDENT) filename(baseline_balance_resident) diffvar(assigned_ever) covariates(assigned_ever county1 county2) zerostring("Control") onestring("Treatment")
+summary_table_diff $comm_controls_comparison, subset(COMMLEVEL) filename(baseline_balance_comm) diffvar(assigned_ever) covariates(assigned_ever county1 county2) zerostring("Control") onestring("Treatment")
+
+
 
 ********************************************************************************
 * Get the aggregate number of incidents prevented ******************************

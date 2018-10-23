@@ -116,7 +116,8 @@ program define ate_maker_inter_demo
 
 	frmttable using out/tables/`filename', ///
 	ctitle("", "\uline{\hfill `inter1' \hfill}", "","", "\uline{\hfill `inter2' \hfill}", "","", "\uline{\hfill `inter3' \hfill}","","", "\uline{\hfill `inter4' \hfill}","","", "\uline{\hfill `inter5' \hfill}","","", "\uline{\hfill `inter6' \hfill}","","", \ ///
-	 "", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum","Treatment", "Interaction", "Sum") ///
+	 "", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum", "Treatment", "Interaction", "Sum","Treatment", "Interaction", "Sum" \ ///
+	 "", "(1)", "(2)", "(3)", "(4)", "(5)", "(6)", "(7)", "(8)", "(9)", "(10)", "(11)", "(12)", "(13)", "(14)", "(15)", "(16)", "(17)", "(18)") ///
 	multicol(1,2,3; 1,5,3; 1,8,3; 1,11,3; 1,14,3; 1,17,3) ///
 	tex ///
 	fragment ///

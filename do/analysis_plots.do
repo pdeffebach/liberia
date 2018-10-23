@@ -66,6 +66,7 @@ inter1("Political Connectedness") inter2("Market Tenure") inter3("Owns own land"
 
 qui do do/tables_do/summary_stats_demo
 * Summary statistics ***********************************************************
+global regression_variables_to_interact female_ec2 age20_40_ec2 cwealthindex_bc             minority_ec2 canypeace_bc cgpeace_bc
 global summary_variables_to_interact female_ec2 age20_40_ec2 minority_ec2 polcnnct_b_ec2 market_tenure ownership_self
 summary_stats_demo $outcomes_invest $outcomes_secured, interactions($summary_variables_to_interact) ///
 intertitle1("Gender") inter1ZERO("Men") inter1ONE("Women") ///
@@ -78,7 +79,7 @@ subset(ENDLINE2_RESIDENT) ///
 filename(summary_stats_demo_plots)
 
 * Security and Investment ******************************************************
-ate_maker_inter_demo $outcomes_hetero, treat(assigned_ever) covariates($C_ec2) interactions($summary_variables_to_interact) subset($L1) filename(hetero_demo_security) ///
+ate_maker_inter_demo $outcomes_hetero, treat(assigned_ever) covariates($C_ec2) interactions($regression_variables_to_interact) subset($L1) filename(hetero_demo_security) ///
 inter1("Female") ///
 inter2("20-40 years old") ///
 inter3("Any ethnic minority") ///

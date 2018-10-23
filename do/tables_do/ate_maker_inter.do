@@ -120,7 +120,8 @@ program define ate_maker_inter
 	"", "", "Coeff. on", "", "", "Coeff. on", "", "", "Coeff. on", "" \ /// 
 	"", "", "treatment-", "Net", "", "treatment-", "Net", "", "treatment-", "Net" \ /// 
 	"", "Coeff. on", "covariate", "effect", "Coeff. on", "covariate", "effect", "Coeff. on", "covariate", "effect"  \ /// 
-	"Dependent variable", "treatment", "interaction", "(sum)", "treatment", "interaction", "(sum)", "treatment", "interaction", "(sum)") ///
+	"Dependent variable", "treatment", "interaction", "(sum)", "treatment", "interaction", "(sum)", "treatment", "interaction", "(sum)" \ ///
+	"", "(1)", "(2)", "(3)", "(4)", "(5)", "(6)", "(7)", "(8)", "(9)") ///
 	multicol(1, 2, 3; 1, 5,3; 1,8,3) ///
 	tex ///
 	fragment ///
