@@ -134,9 +134,10 @@ program define ate_maker_intensive
 	qui frmttable, statmat(reg_e2) varlabels substat(1) merge annotate(stars_e2) asymbol(*,**,***) sdec(3) squarebrack
 
 	frmttable using out/tables/`filename', ///
-	ctitle("", "\uline{\hfill Endline 1 \hfill}", "", "", "\uline{\hfill Endline 2 \hfill}", "", "" \ ///
+	ctitle("", "\uline{\hfill 1-year endline \hfill}", "", "", "\uline{\hfill 3-year endline \hfill}", "", "" \ ///
 	"", "Normal", "Intensive", "", "Normal", "Intensive", "", \ ///
-	"", "treatment", "treatment", "Sum", "treatment", "treatment", "Sum") ///
+	"Dependent variable", "treatment", "treatment", "Sum", "treatment", "treatment", "Sum" \ ///
+	"", "(1)", "(2)", "(3)", "(4)", "(5)", "(6)") ///
 	multicol(1,2,3; 1,5,3) ///
 	tex ///
 	fragment ///

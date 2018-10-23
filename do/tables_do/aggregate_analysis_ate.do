@@ -132,7 +132,8 @@ qui frmttable, statmat(net_g2) sdec(0) varlabels merge
 qui frmttable, statmat(net_all) sdec(0) varlabels merge 
 
 frmttable using out/tables/`filename', ctitle("", "\uline{\hfill ATE \hfill}", "", "\uline{\hfill Net effect \hfill}", "", "Net Effect imputed" \ ///
- "Dependent Variable", "Endline 1", "Endline 2", "Endline 1", "Endline 2", "for missing year") ///
+ "Dependent Variable", "1-year endline", "3-year endline", "1-year endline", "3-year endline", "for missing year" \ ///
+ "", "(1)", "(2)", "(3)", "(4)", "(5)") ///
 multicol(1,2,2;1,4,2) ///
 tex ///
 fragment ///

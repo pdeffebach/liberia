@@ -212,7 +212,7 @@ if "`extraadjustvarsg1'" != "" {
 	qui frmttable, statmat(adjusted_ps_g2) sdec(3) varlabels merge annotate(adjusted_ps_syms_g2) asymbol(\textsuperscript{b},\textsuperscript{d}) squarebrack
 
 	frmttable using out/tables/`filename'_year, ///
-	ctitle("", "\uline{\hfill Endline 1 \hfill}", "", "", "", "", "", "", "\uline{\hfill Endline 2 \hfill}", "", "", "", "", ""  \ ///
+	ctitle("", "\uline{\hfill 1-year endline \hfill}", "", "", "", "", "", "", "\uline{\hfill 3-year endline \hfill}", "", "", "", "", ""  \ ///
 	"", "", "", "", "ITT /", , "", "", "", "",, "", "", "ITT /", "", "",  \ ///
 	"", "Control", "", "", "control", "Est.", "WY Adj.", "Holms Adj" "Control", "", "", "control", "Est.", "WY Adj.", "Holms Adj"  \ ///
 	"Dependent Variable", "mean", "N", "ITT", "mean (\%)", "p-val", "p-val", "p-val", "mean", "N", "ITT", "mean (\%)", "p-val", "p-val", "p-val" \ ///
@@ -236,7 +236,7 @@ else {
 	qui frmttable, statmat(ate_pct_g2) sdec(1, 0) varlabels merge 
 
 	frmttable using out/tables/`filename'_year, ///
-	ctitle("", "\uline{\hfill Endline 1 \hfill}", "", "", "", "\uline{\hfill Endline 2 \hfill}", "", "", "" \ ///
+	ctitle("", "\uline{\hfill 1-year endline \hfill}", "", "", "", "\uline{\hfill 3-year endline \hfill}", "", "", "" \ ///
 	"", "", "", "", "ITT / ", "", "", "", "ITT /" \ ///	
 	"", "Control", "", "", "control", "Control", "", "", "control" \ ///
 	"Dependent Variable", "mean", "N", "ITT", "mean (\%)" "mean", "N", "ITT", "mean (\%)" \ ///

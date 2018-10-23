@@ -152,7 +152,7 @@ program define IV_maker_year
 
 
 	frmttable using out/tables/`filename'_iv, ///
-	ctitle("", "\uline{\hfill Endline 1 \hfill}", "", "", "", "", "\uline{\hfill Endline 2 \hfill}", "", "", "", "" \ ///
+	ctitle("", "\uline{\hfill 1-year endline \hfill}", "", "", "", "", "\uline{\hfill 3-year endline \hfill}", "", "", "", "" \ ///
 	"Dependent Variable", "Control mean", "N", "IV est.","SE", "ITT / control mean" "Control mean", "N", "IV est." "SE", "ITT / control mean" \ ///
 	"", "(1)", "(2)", "(3)", "(4)", "(5)", "(6)", "(7)", "(8)", "(9)", "(10)") ///
 	tex ///
