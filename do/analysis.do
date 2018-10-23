@@ -34,8 +34,8 @@ qui qui do do/tables_do/summary_table
 * qui summary_table $C_ec2, filename(covariates_resident) subset($L1)
 
 
-local nsims = 1000
-/*
+local nsims = 2
+
 ********************************************************************************
 * Comparison between ATEs in Endline 1 and Endline 2 ***************************
 ********************************************************************************
@@ -147,7 +147,7 @@ ate_maker_intensive jpc_attend $intensive, treatmain(assigned_ever) treatintense
 * Community-level impacts ******************************************************
 ********************************************************************************
 * Make the tables **************************************************************
-// ate_maker $comdispute_leader, treat(assigned_ever) covariates($comm_ctrls) subset(ENDLINE2_LEADER) filename(comdispute_leader) adjustvars($comdispute_leader) nsims(`nsims')
+ate_maker $comdispute_leader, treat(assigned_ever) covariates($comm_ctrls) subset(ENDLINE2_LEADER) filename(comdispute_leader) adjustvars($comdispute_leader) nsims(`nsims')
 summary_table $comdispute_leader, filename(comdispute_leader_summary) subset(ENDLINE2_LEADER)
 
 
