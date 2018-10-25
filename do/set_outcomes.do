@@ -1,7 +1,8 @@
 * Set globals of dependent variables *******************************************
-
+cap drop unconditional_label_land 
 gen unconditional_label_land = .
 label var unconditional_label_land "\textbf{Panel A: Ouctomes for all residents}"
+cap drop conditional_label_land
 gen conditional_label_land = .
 label var conditional_label_land "\textbf{Panel B: Conditional on a land dispute}"
 
@@ -293,7 +294,6 @@ label var hetero_label "\textbf{Conditional on a land dispute}"
 global hetero_demo_conflict ///
     anylndconf_u_ec2 ///
     unrslv_lnd_conf_u_ec2 ///
-    hetero_label ///
     conf_any_c_ec2 ///
     forum_lastsuc_c_ec2
 

@@ -23,8 +23,9 @@ qui qui do do/tables_do/ate_maker
 qui qui do do/tables_do/adjust_p_values
 qui qui do do/tables_do/ate_maker_year
 qui do do/tables_do/ate_maker_dropped
+qui do do/tables_do/ate_maker_inter_long
 set more off
-
+/*
 * Also initialize the summary table program ************************************
 qui qui do do/tables_do/summary_table
 
@@ -118,7 +119,7 @@ ate_maker $managing_emotions_index, treat(assigned_ever) covariates($C_ec2) subs
 ate_maker $mediation_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(mediation_index_ec2) omitpct adjustvars($mediation_index) nsims(`nsims')
 ate_maker $negotiation_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(negotiation_index_ec2) omitpct adjustvars($negotiation_index) nsims(`nsims')
 ate_maker $all_index_categories, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(all_categories_ec2) omitpct adjustvars($all_index_categories) nsims(`nsims')
-*/
+
 
 * Make a summary table of these outcomes ***************************************
 qui summary_table $land_conflict, filename(land_conflict_summary) subset($L1)
@@ -169,20 +170,27 @@ IV_maker_year $land_conflict_paper, exogenous(block1 block2 block3) endogenous(y
 ********************************************************************************
 * Interaction based on gender, age, minority ***********************************
 ********************************************************************************
-
+*/
 * Key violence outcomes ********************************************************
 qui do do/tables_do/ate_maker_inter_demo
 qui do do/tables_do/summary_stats_demo
 
-global variables_to_interact            female_ec2 age20_40_ec2 cwealthindex_bc             minority_ec2 canypeace_bc cgpeace_bc
+local headers ///
+`" "", "\uline{\hfill For all residents \hfill}", "", "\uline{\hfill Conditional on a dispute ocurring \hfill}", "" \  "", "Any land", "Any unresolved", "Any threats, property" "Resolved land" \ "Independent variable", "dispute", "dispute", "damage or violence", "dispute" \ "", "(1)", "(2)", "(3)", "(4)" "'
+
+local multicols = ///
+`" 1,2,2;1,4,2 "'
+
+global regression_variables_to_interact            female_ec2 age20_40_ec2 cwealthindex_below_med_bc             minority_ec2 canypeace_bc cgpeace_bc
 global summary_variables_to_interact    female_ec2 age20_40_ec2 cwealthindex_below_med_bc   minority_ec2 canypeace_dum_bc cgpeace_dum_bc
-ate_maker_inter_demo $hetero_demo_conflict, treat(assigned_ever) covariates($C_ec2) interactions($variables_to_interact) subset($L1) filename(hetero_demo_conflict) ///
+ate_maker_inter_long $hetero_demo_conflict, treat(assigned_ever) covariates($C_ec2) interactions($regression_variables_to_interact) subset($L1) filename(hetero_demo_conflict) ///
 inter1("Female") ///
 inter2("20-40 years old") ///
-inter3("Wealth index") ///
+inter3("Below median wealth") ///
 inter4("Any ethnic minority") ///
 inter5("\% town peace education at baseline") ///
-inter6("\% town peace group at baseline")
+inter6("\% town peace group at baseline") ///
+headers(`headers') multicols(`multicols')
 
 summary_stats_demo $conflict_adj_p, interactions($summary_variables_to_interact) ///
 intertitle1("Gender") inter1ZERO("Men") inter1ONE("Women") ///
