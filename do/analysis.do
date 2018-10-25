@@ -35,7 +35,7 @@ qui qui do do/tables_do/summary_table
 * qui summary_table $C_ec2, filename(covariates_resident) subset($L1)
 
 
-local nsims = 2
+local nsims = 1000
 
 ********************************************************************************
 * Comparison between ATEs in Endline 1 and Endline 2 ***************************
@@ -112,12 +112,12 @@ ate_maker_year $comm_conflict, treat(assigned_ever) group1(ENDLINE_LEADER) group
 ate_maker $fallow_security_paper, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(fallow_security_paper) omitpct adjustvars($fallow_security_paper) nsims(`nsims')
 
 ate_maker $fallow_security, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(fallow_security) adjustvars($fallow_security) nsims(`nsims')
-ate_maker $bias_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(bias_index_ec2) omitpct adjustvars($bias_index) nsims(`nsims')
-ate_maker $defection_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(defection_index_ec2) omitpct adjustvars($defection_index) nsims(`nsims')
-ate_maker $forum_choice_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(forum_choice_index_ec2) omitpct adjustvars($forum_choice_index) nsims(`nsims')
-ate_maker $managing_emotions_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(managing_emotions_index_ec2) omitpct adjustvars($managing_emotions_index) nsims(`nsims')
-ate_maker $mediation_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(mediation_index_ec2) omitpct adjustvars($mediation_index) nsims(`nsims')
-ate_maker $negotiation_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(negotiation_index_ec2) omitpct adjustvars($negotiation_index) nsims(`nsims')
+ate_maker $bias_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(bias_index_ec2) omitpct  
+ate_maker $defection_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(defection_index_ec2) omitpct 
+ate_maker $forum_choice_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(forum_choice_index_ec2) omitpct 
+ate_maker $managing_emotions_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(managing_emotions_index_ec2) omitpct
+ate_maker $mediation_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(mediation_index_ec2) omitpct
+ate_maker $negotiation_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(negotiation_index_ec2) omitpct 
 ate_maker $all_index_categories, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(all_categories_ec2) omitpct adjustvars($all_index_categories) nsims(`nsims')
 
 
