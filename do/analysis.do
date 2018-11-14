@@ -25,7 +25,7 @@ qui qui do do/tables_do/ate_maker_year
 qui do do/tables_do/ate_maker_dropped
 qui do do/tables_do/ate_maker_inter_long
 set more off
-/*
+
 * Also initialize the summary table program ************************************
 qui qui do do/tables_do/summary_table
 
@@ -110,8 +110,7 @@ ate_maker_year $comm_conflict, treat(assigned_ever) group1(ENDLINE_LEADER) group
 ********************************************************************************
 /* Land conflict and all conflict are moved to the E1-E2 comparison */ 
 ate_maker $fallow_security_paper, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(fallow_security_paper) omitpct adjustvars($fallow_security_paper) nsims(`nsims')
-
-ate_maker $fallow_security, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(fallow_security) adjustvars($fallow_security) nsims(`nsims')
+ate_maker $fallow_security, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(fallow_security) 
 ate_maker $bias_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(bias_index_ec2) omitpct  
 ate_maker $defection_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(defection_index_ec2) omitpct 
 ate_maker $forum_choice_index, treat(assigned_ever) covariates($C_ec2) subset($L1) filename(forum_choice_index_ec2) omitpct 
@@ -170,7 +169,7 @@ IV_maker_year $land_conflict_paper, exogenous(block1 block2 block3) endogenous(y
 ********************************************************************************
 * Interaction based on gender, age, minority ***********************************
 ********************************************************************************
-*/
+
 * Key violence outcomes ********************************************************
 qui do do/tables_do/ate_maker_inter_demo
 qui do do/tables_do/summary_stats_demo

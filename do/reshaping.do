@@ -99,7 +99,7 @@ label var acresfence				"Acres affected by fence improvement in farm"
 label var acrestree					"Acres affected by tree improvement in farm"
 
 
-label var security_rights 			"Security index through rights"
+label var security_rights 			"Security rights index, z-score"
 label var inherit					"\quad Ability to inherit, house and farm (0-3)"
 label var sell						"\quad Ability to sell, house and farm (0-3)"
 label var pawn						"\quad Ability to pawn, house and farm (0-3)"

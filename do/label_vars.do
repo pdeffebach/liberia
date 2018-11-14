@@ -74,12 +74,12 @@ label var restseasons 			"\quad Num. of seasons to rest"
 label var securerest  			"\quad Level of security if land resting"
 label var size_farm 			"Size of farm"
 
-label var security_rights 		"Security rights index for house and farm"
+label var security_rights 		"Security rights index, z-score"
 label var security_rights_farm	"\quad Security rights index for farm"
 label var security_rights_house "\quad Security rights index for house"
 
 
-label var improvez 				"Improvement index for house and farm"
+label var improvez 				"Improvement index, z-score"
 label var improvez_farm			"\quad Improvement index for farm"
 label var improvez_house 		"\quad Improvement index for house"
 
