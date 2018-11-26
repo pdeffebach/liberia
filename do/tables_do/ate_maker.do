@@ -1,11 +1,12 @@
 
 
-cap program drop ate_maker
-program define ate_maker
-clear mata 
+cap program drop ate_maker // drop the program if it already exists
+program define ate_maker // define the program
+clear mata // clear the internal matrix memory
+// the next code defines the syntax for the function
 syntax varlist, TREAT(varlist) COVARIATES(varlist) SUBSET(varlist) FILENAME(name) [omitpct] ///
 	[ADJUSTVARS(varlist) NSIMS(integer 0)] [EXTRAADJUSTVARS(varlist)]
-
+// Defines the `adjust_p_values` program, to be explained later. 
 qui do do/tables_do/adjust_p_values
 local dep_vars `varlist' // creating a local for dep. variables
 local number_dep_vars = `:word count `dep_vars''
@@ -18,16 +19,20 @@ local regressors `treat' `covariates'
 	because obviously we don't want counts to have decimal places, but 
 	we do want decimal places for means. */
 
-mat control_mean 	= J(`number_dep_vars',1,.)
-mat reg_count		= J(`number_dep_vars',1,.)
-mat reg_main 		= J(`number_dep_vars',2,.)
-mat stars			= J(`number_dep_vars',2,0)
-mat reg_pct_control = J(`number_dep_vars',1,.)
-mat estimated_ps 	= J(`number_dep_vars',1,.)
-mat adjusted_ps 	= J(`number_dep_vars',2,.)
-mat adjusted_ps_syms = J(`number_dep_vars',2,0)
+mat control_mean 	= J(`number_dep_vars',1,.) // holds the control means for each variable
+mat reg_count		= J(`number_dep_vars',1,.) // holds the regression Ns for each variable
+mat reg_main 		= J(`number_dep_vars',2,.) // holds the beta and SE for each variable
+mat stars			= J(`number_dep_vars',2,0) // count of stars attached to standard errors
+mat reg_pct_control = J(`number_dep_vars',1,.) // regression estimates as a percentage of control means
+mat estimated_ps 	= J(`number_dep_vars',1,.) // estimated p-values, from the regression
+mat adjusted_ps 	= J(`number_dep_vars',2,.) // adjusted p values from westfall young (column 1) and 
+                                               // Sidak-Holmes (column 2)
+mat adjusted_ps_syms = J(`number_dep_vars',2,0) // Similar to `stars`. Let's us know the family 
+                                                // groupings for the corrected p-values
+
 
 // Initializing row names.
+// this is essential for merging them all together at the end. 
 mat rownames control_mean = `dep_vars'
 mat rownames reg_count = `dep_vars'
 mat rownames reg_main = `dep_vars'
@@ -40,6 +45,7 @@ foreach y in `dep_vars'{
 	qui sum `y' if `subset' == 1
 	if r(N) != 0 {
 	* Run the regression ***************************************************
+	// defined above
 	qui svy: reg `y' `regressors' if (`subset' == 1)
 	
 	* Input number of obs. in regression ***********************************
@@ -47,6 +53,7 @@ foreach y in `dep_vars'{
 	
 	* Calculate the p-value of treatment ***********************************
 	local p = (2 * ttail(e(df_r), abs(_b[`treat']/_se[`treat'])))
+	// input it 
 	mat estimated_ps[`y_counter',1] = `p'
 	* Use p-value to make stars ********************************************
 		if (`p' < .1) 	mat stars[`y_counter',2] = 1 // less than 10%?

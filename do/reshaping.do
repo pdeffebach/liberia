@@ -79,7 +79,7 @@ drop sizec50
 
 label var z_improvement				"Property investment index, z-score"
 label var monetary_improvement		"\quad Monetary value of improvement, house and farm, (z-score)"
-label var nonmoney	"\quad Non-monetary improvement, house and farm (z-score)"
+label var nonmoney					"\quad Non-monetary improvement, house and farm (z-score)"
 label var improvement				"\quad Made an improvement, house and farm"
 
 label var improveexisting			"Improved Existing house"
