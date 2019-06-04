@@ -77,7 +77,7 @@ foreach y in `dep_vars'{
 		local temp_mean = mean_mat[1, 1]
 		qui sum `y' if `subset' == 1 
 		// put in the control mean, but only if its not an index variable
-		if abs(r(mean)) > .01 & r(min) !< 0 { 
+		if (abs(r(mean)) > .01 | r(min) >= 0) { 
 			mat reg_pct_control[`m', 1] = 100 * `beta' / `temp_mean'
 		}
 	} // end if r(N) != 0 (for new blank variables that are labels)
