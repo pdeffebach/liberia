@@ -11,7 +11,7 @@ preserve // we are going to use `keep` to avoid sample-issues with the `wyoung`
          // command. So we preserve. This is usually expensive, but not in com-
          // parison to the simulations. 
 keep if `group' == 1 
-wyoung `adjustvars', /// input our family of regressions
+qui wyoung `adjustvars', /// input our family of regressions
     cmd(svy: regress OUTCOMEVAR `regressors')  /// this is the exact same command in our normal regressions
     cluster(commcode) /// `svy:` handles the clustering in the regression, but we still need 
                       /// clustering in the bootstrapping! Otherwise our p-values will be too small. 

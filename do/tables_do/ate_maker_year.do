@@ -97,18 +97,18 @@ program define ate_maker_year
 			mat reg_g1[`m',1] = _b[`treat'] // put in beta estimate
 			mat reg_g1[`m',2] = _se[`treat'] // put in standard error estimate
 
-		local beta = _b[`treat']
-
-		* Get the control mean *************************************************
-		qui svy: mean `y' if (`treat' == 0 & `group1' == 1) // get summary stats for control mean
-		mat mean_mat = e(b) // store the mean as a temporary local because the way stata handles matrices is dumb
-		mat control_mean_g1[`m',1] = mean_mat[1, 1] // put in control mean 
-		local temp_mean = mean_mat[1, 1]
-		qui sum `y' if `group1' == 1 
-		// put in the control mean, but only if its not an index variable
-		if abs(r(mean)) > .01 { 
-			mat ate_pct_g1[`m', 1] = 100 * `beta' / `temp_mean'
-		}
+			local beta = _b[`treat']
+	
+			* Get the control mean *************************************************
+			qui svy: mean `y' if (`treat' == 0 & `group1' == 1) // get summary stats for control mean
+			mat mean_mat = e(b) // store the mean as a temporary local because the way stata handles matrices is dumb
+			mat control_mean_g1[`m',1] = mean_mat[1, 1] // put in control mean 
+			local temp_mean = mean_mat[1, 1]
+			qui sum `y' if `group1' == 1 
+			// put in the control mean, but only if its not an index variable
+			if abs(r(mean)) > .01 & r(min) >= 0 { 
+				mat ate_pct_g1[`m', 1] = 100 * `beta' / `temp_mean'
+			}
 		}
 
 
@@ -146,7 +146,7 @@ program define ate_maker_year
 		local temp_mean = mean_mat[1, 1]
 		
 		qui sum `y' if `group2' == 1
-		if abs(r(mean)) > .01 { 
+		if !(abs(r(mean)) > .01 | r(min) >= 0) { 
 			mat ate_pct_g2[`m', 1] = 100 * `beta' / `temp_mean'
 		}
 		}

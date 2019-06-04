@@ -44,38 +44,42 @@ loc y_counter = 1
 foreach y in `dep_vars'{ 
 	qui sum `y' if `subset' == 1
 	if r(N) != 0 {
-	* Run the regression ***************************************************
-	// defined above
-	qui svy: reg `y' `regressors' if (`subset' == 1)
-	
-	* Input number of obs. in regression ***********************************
-	mat reg_count[`y_counter',1] = e(N) // put in number of observations used in regression
-	
-	* Calculate the p-value of treatment ***********************************
-	local p = (2 * ttail(e(df_r), abs(_b[`treat']/_se[`treat'])))
-	// input it 
-	mat estimated_ps[`y_counter',1] = `p'
-	* Use p-value to make stars ********************************************
-		if (`p' < .1) 	mat stars[`y_counter',2] = 1 // less than 10%?
-		if (`p' < .05) 	mat stars[`y_counter',2] = 2 // less than 5%?
-		if (`p' < .01) 	mat stars[`y_counter',2] = 3 // less than 1%?
-	
-	* Input the betas and the standard errors ******************************
-	mat reg_main[`y_counter',1] = _b[`treat'] // put in beta estimate
-	mat reg_main[`y_counter',2] = _se[`treat'] // put in standard error estimate
-	
-	* Save the beta for use in calculating beta / control mean 
-	/* 	The command svy: mean overwrites the beta matrix that was created 
-		in the regression. 
-	*/
-	local beta = _b[`treat']
-	
-	* Get the control mean *************************************************
-	qui svy: mean `y' if (`treat' == 0 & `subset' == 1) // get summary stats for control mean
-	mat mean_mat = e(b) // store the mean as a temporary local because the way stata handles matrices is dumb
-	mat control_mean[`y_counter',1] = mean_mat[1, 1] // put in control mean 
-	local temp_mean = mean_mat[1, 1]
-	mat reg_pct_control[`y_counter', 1] = 100 * `beta' / `temp_mean'
+		* Run the regression ***************************************************
+		// defined above
+		qui svy: reg `y' `regressors' if (`subset' == 1)
+		
+		* Input number of obs. in regression ***********************************
+		mat reg_count[`y_counter',1] = e(N) // put in number of observations used in regression
+		
+		* Calculate the p-value of treatment ***********************************
+		local p = (2 * ttail(e(df_r), abs(_b[`treat']/_se[`treat'])))
+		// input it 
+		mat estimated_ps[`y_counter',1] = `p'
+		* Use p-value to make stars ********************************************
+			if (`p' < .1) 	mat stars[`y_counter',2] = 1 // less than 10%?
+			if (`p' < .05) 	mat stars[`y_counter',2] = 2 // less than 5%?
+			if (`p' < .01) 	mat stars[`y_counter',2] = 3 // less than 1%?
+		
+		* Input the betas and the standard errors ******************************
+		mat reg_main[`y_counter',1] = _b[`treat'] // put in beta estimate
+		mat reg_main[`y_counter',2] = _se[`treat'] // put in standard error estimate
+		
+		* Save the beta for use in calculating beta / control mean 
+		/* 	The command svy: mean overwrites the beta matrix that was created 
+			in the regression. 
+		*/
+		local beta = _b[`treat']
+		
+		* Get the control mean *************************************************
+		qui svy: mean `y' if (`treat' == 0 & `subset' == 1) // get summary stats for control mean
+		mat mean_mat = e(b) // store the mean as a temporary local because the way stata handles matrices is dumb
+		mat control_mean[`y_counter',1] = mean_mat[1, 1] // put in control mean 
+		local temp_mean = mean_mat[1, 1]
+		qui sum `y' if `subset' == 1 
+		// put in the control mean, but only if its not an index variable
+		if abs(r(mean)) > .01 & r(min) !< 0 { 
+			mat reg_pct_control[`m', 1] = 100 * `beta' / `temp_mean'
+		}
 	} // end if r(N) != 0 (for new blank variables that are labels)
 	
 	* Increment the counters ***********************************************
@@ -83,7 +87,7 @@ foreach y in `dep_vars'{
 }
 
 if "`adjustvars'" != "" {
-	adjust_p_values, adjustvars(`adjustvars') adjustvarsmat(adjusted_ps) controls(`covariates') treat(`treat') nsims(`nsims') strata(district_bl) group(`subset')
+	qui adjust_p_values, adjustvars(`adjustvars') adjustvarsmat(adjusted_ps) controls(`covariates') treat(`treat') nsims(`nsims') strata(district_bl) group(`subset')
 	foreach y in `adjustvars' {
 		local t = rownumb(adjusted_ps, "`y'")
 		mat adjusted_ps_syms[`t', 1] = 1 
@@ -91,7 +95,7 @@ if "`adjustvars'" != "" {
 }
 
 if "`extraadjustvars'" != "" {
-	adjust_p_values, adjustvars(`extraadjustvars') adjustvarsmat(adjusted_ps) controls(`covariates') treat(`treat') nsims(`nsims') strata(district_bl) group(`subset')
+	qui adjust_p_values, adjustvars(`extraadjustvars') adjustvarsmat(adjusted_ps) controls(`covariates') treat(`treat') nsims(`nsims') strata(district_bl) group(`subset')
 	foreach y in `extraadjustvars' {
 		local t = rownumb(adjusted_ps, "`y'")
 		mat adjusted_ps_syms[`t', 1] = 2 

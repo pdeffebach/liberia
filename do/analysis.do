@@ -35,8 +35,8 @@ qui qui do do/tables_do/summary_table
 * qui summary_table $C_ec2, filename(covariates_resident) subset($L1)
 
 
-local nsims = 1000
-
+local nsims = 2
+asdf
 ********************************************************************************
 * Comparison between ATEs in Endline 1 and Endline 2 ***************************
 ********************************************************************************
@@ -104,7 +104,7 @@ ate_maker_year $all_conflict, treat(assigned_ever) group1(resident_e1) group2(EN
 
 
 ate_maker_year $comm_conflict, treat(assigned_ever) group1(ENDLINE_LEADER) group2(ENDLINE2_LEADER) controls1($comm_ctrls_apsr) controls2($comm_ctrls) filename(comm_conflict) adjustvarsg1($comm_conflict) adjustvarsg2($comm_conflict) nsims(`nsims')
-
+asdf
 ********************************************************************************
 * Resident-level analysis ******************************************************
 ********************************************************************************
@@ -125,15 +125,6 @@ qui summary_table $land_conflict, filename(land_conflict_summary) subset($L1)
 qui summary_table $all_conflict, filename(all_conflict_summary) subset($L1)
 qui summary_table $fallow_security, filename(fallow_security_summary) subset($L1)
 qui summary_table $all_index_categories, filename(all_categories_summary) subset($L1)
-
-********************************************************************************
-* Make a table of all the norms/skills categories for residents and leaders ****
-********************************************************************************
-
-qui do do/tables_do/ate_maker_res_leader
-/* 	Remember that I cheated here, and that leaders' information is in variabels
-	ending in _ec2. */
-ate_maker_res_leader $all_index_categories, treat(assigned_ever) covariatesres($C_ec2) covariatesleader($C_el2) filename(all_categories) resgroup(ENDLINE2_RESIDENT) leadergroup(ENDLINE2_LEADER) 
 
 ********************************************************************************
 * Intensive Treatment **********************************************************
@@ -169,7 +160,8 @@ IV_maker_year $land_conflict_paper, exogenous(block1 block2 block3) endogenous(y
 ********************************************************************************
 * Interaction based on gender, age, minority ***********************************
 ********************************************************************************
-
+// TODO: explain this weird header shit.
+// This is code smell.
 * Key violence outcomes ********************************************************
 qui do do/tables_do/ate_maker_inter_demo
 qui do do/tables_do/summary_stats_demo
