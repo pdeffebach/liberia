@@ -106,7 +106,7 @@ program define ate_maker_year
 			local temp_mean = mean_mat[1, 1]
 			qui sum `y' if `group1' == 1 
 			// put in the control mean, but only if its not an index variable
-			if abs(r(mean)) > .01 & r(min) >= 0 { 
+		if (abs(r(mean)) > .01 | r(min) >= 0) {
 				mat ate_pct_g1[`m', 1] = 100 * `beta' / `temp_mean'
 			}
 		}
@@ -146,7 +146,7 @@ program define ate_maker_year
 		local temp_mean = mean_mat[1, 1]
 		
 		qui sum `y' if `group2' == 1
-		if !(abs(r(mean)) > .01 | r(min) >= 0) { 
+		if (abs(r(mean)) > .01 | r(min) >= 0) { 
 			mat ate_pct_g2[`m', 1] = 100 * `beta' / `temp_mean'
 		}
 		}
