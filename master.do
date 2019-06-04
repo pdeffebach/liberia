@@ -49,11 +49,11 @@ qui adopath ++ ./ado
 ********************************************************************************
 /* 	* 	Uses the "ready_analysis" .dta file created in the cleaning code 
 */
-	do do/analysis
+	qui do do/analysis
 
 
 /* Uses the "ready_plots" .dta file */
-	do do/analysis_plots
+	qui do do/analysis_plots
 
 
 ********************************************************************************
