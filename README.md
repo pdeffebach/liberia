@@ -314,8 +314,6 @@ and turns it into
 
 `ate_maker_inter` and `ate_maker_inter_demo`: These two are practically the same functions, the only difference being that `ate_maker_inter` allows for 3 interaction variables and `ate_maker_inter_demo` allows for 7. Why didn't I just make one function that allowed for any number of interaction variables? Good question. Adding the multi-level columns in an automated way would require some work generating strings. Stata is pretty far from a general purpose programming language, but R is closer. It might be worth trying to combine the two functions into one in R. 
 
-`ate_maker_res_leader`: This function is for variables that both residents and leaders have in common, which is really just the norms and skills questions. 
-
 `ate_maker_year`: This code is for comparing Endline 1 and Endline 3 effects. Only the outcomes related to conflict, at the resident level and community level, are present in both years. **Note that the function adds the suffix `_year` onto the end of the filename.**
 
 `IV_maker_year`: The same as `ate_maker_year` but it uses instrumental variables instead of a normal ITT. In the Endline 1 paper, we used an instrumental variables approach because many treated commnuities had a long delay in receiving treatment, and were consequently just receiving treatment as we were performing the Endline survey. Ultimately, we decided that for the 3-year follow up we would use a simple ITT.
