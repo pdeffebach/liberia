@@ -44,7 +44,7 @@ qui adopath ++ ./ado
 	qui do do/reshaping
 
 	save "temp.dta", replace 
-	cap erase "temp.dta" 
+	
 
 ********************************************************************************
 * Perform all the analyses *****************************************************
