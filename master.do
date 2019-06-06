@@ -56,5 +56,5 @@ qui adopath ++ ./ado
 /* Uses the "ready_plots" .dta file */
 	qui do do/analysis_plots
 
-
+display "Successfully finished" 
 ********************************************************************************
