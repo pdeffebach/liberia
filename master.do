@@ -15,8 +15,9 @@ qui adopath ++ ./ado
 ********************************************************************************
 * Do the importing and merging *************************************************
 ********************************************************************************
-/* 	Don't run import_from_external. It's a mess and contains global paths. We can 
-	forget about it for now. 
+/* import_from_external is the first do file in the code. However, it's not 
+important to run, contains a lot of global paths, and needs to be run from 
+the Dropbox folder (not Git or the cluster)
 */
 
 	* 	imports the data
